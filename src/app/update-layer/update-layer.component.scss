@@ -1,0 +1,24 @@
+@import "src/scss/variables";
+
+.update-layer {
+  align-items: center;
+  background: $c-success;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: $spacing--default;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.update-layer__button {
+  -webkit-appearance: none;
+  background: $c-light;
+  border-radius: $border-radius--default;
+  border: 0;
+  box-shadow: $interactive--box-shadow;
+  font-size: $font-size--default;
+  padding: $spacing--default;
+}

@@ -1,0 +1,13 @@
+$svg--medium: 20px;
+
+:host {
+  display: flex;
+  fill: currentColor;
+}
+
+:host.app-svg--medium {
+  height: $svg--medium;
+  width: $svg--medium;
+}
+
+

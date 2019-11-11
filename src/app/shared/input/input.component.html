@@ -1,0 +1,16 @@
+<div [formGroup]="parentForm" class="input" [ngClass]="{'input--readonly': readonly}">
+  <label class="input__label" for="input-{{id}}">{{label}}</label>
+
+  <div class="input__wrapper" [ngClass]="{
+        'input__wrapper--valid': parentForm.controls[id].valid && parentForm.controls[id].dirty,
+        'input__wrapper--invalid': parentForm.controls[id].invalid && parentForm.controls[id].dirty
+    }">
+
+    <ng-container [ngSwitch]="type">
+      <input *ngSwitchDefault [formControlName]="id" id="input-{{id}}" name="{{id}}" type="{{type}}" [readOnly]="readonly">
+      <select *ngSwitchCase="'select'" [formControlName]="id" id="input-{{id}}" name="{{id}}">
+        <option *ngFor="let option of options" value="{{option.id}}">{{option.name}}</option>
+      </select>
+    </ng-container>
+  </div>
+</div>

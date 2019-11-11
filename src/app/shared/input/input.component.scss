@@ -1,0 +1,63 @@
+@import "src/scss/variables";
+
+button,
+input,
+select {
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  color: #000;
+  display: block;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  line-height: 4rem - (20/14);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.input {
+  margin-bottom: $spacing--default
+}
+
+.input__label {
+  color: $c-light;
+  display: inline-block;
+  font-size: .8rem;
+  padding-bottom: .25rem;
+  padding-left: $border-radius--default;
+}
+
+.input__wrapper {
+  background: $c-light;
+  border-radius: $border-radius--default;
+  box-shadow: $interactive--box-shadow;
+  display: flex;
+  padding: $border-radius--default;
+  border: 2px solid transparent;
+
+  &--valid {
+    // @Todo.
+  }
+
+  &--invalid {
+    border-color: $c-danger;
+  }
+}
+
+
+.input--readonly {
+
+  .input__wrapper {
+    background: rgba($c-light, .2);
+    box-shadow: none;
+  }
+
+  input {
+    color: $c-light
+  }
+}

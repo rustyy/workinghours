@@ -1,0 +1,44 @@
+@import "src/scss/variables";
+
+$button--medium: 40px;
+$button--large: 60px;
+
+:host.button {
+  height: 80px;
+  width: 80px;
+}
+
+:host.button,
+.button__inner {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-decoration: none
+}
+
+.button__inner {
+  background: #fff;
+  border-radius: 100%;
+  box-shadow: $interactive--box-shadow;
+  color: $c-primary;
+  height: $button--medium;
+  width: $button--medium;
+
+  :host.button--large & {
+    height: $button--large;
+    width: $button--large;
+  }
+
+  :host.button--save & {
+    background: $c-success;
+  }
+
+  :host.button--delete & {
+    background: $c-danger;
+    color: $c-light;
+  }
+
+  :host[disabled] & {
+    background: #ededed;
+  }
+}

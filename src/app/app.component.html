@@ -1,0 +1,7 @@
+<app-update-layer [show]="updatesAvailable" ></app-update-layer>
+
+<div [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
+</div>
+
+<app-svg-defs></app-svg-defs>

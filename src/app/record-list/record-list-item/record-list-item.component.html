@@ -1,0 +1,20 @@
+<a class="record-list__item item" [routerLink]="['/record', item.id]">
+  <div class="item__day">
+    <div class="item__weekday">
+      {{item.start | date: "EEEEEE" | translate}}
+    </div>
+    <div class="item__date">{{item.start | date: "dd.MM."}}</div>
+  </div>
+
+  <div *ngIf="item.type !== 0" class="item__type item__type--{{item.type}}">
+    {{'TYPES.type' + item.type | translate}}
+  </div>
+
+  <div *ngIf="item.type === 0" class="item__content">
+    <div class="item__from-to-overall-wrapper">
+      <div class="item__from-to">{{item.start | date: "HH:mm"}} - {{item.end | date: "HH:mm"}}</div>
+      <div *ngIf="item.type === 0" class="item__overall">{{item.overall | minutesToHours}}</div>
+    </div>
+    <div class="item__project">{{item.project}}</div>
+  </div>
+</a>

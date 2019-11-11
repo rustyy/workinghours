@@ -1,0 +1,41 @@
+@import "src/scss/variables";
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
+.page__top,
+.page__bottom {
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+
+  @supports (backdrop-filter: blur()) {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px)
+  }
+
+  @supports not (backdrop-filter: blur()) {
+    background: $c-primary
+  }
+}
+
+.page__top {
+  top: 0;
+}
+
+.page__center {
+  margin: 0 $spacing--default;
+}
+
+.page__bottom {
+  bottom: 0;
+}
+
+[class*="--reverse"] {
+  flex-direction: row-reverse;
+}
+

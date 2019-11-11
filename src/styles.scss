@@ -1,0 +1,73 @@
+@import 'src/scss/variables';
+
+html {
+  font-size: $font-size--init;
+  min-height: 100%;
+}
+
+body {
+  font-family: $font-family--default;
+  font-weight: $font-weight--default;
+  background-image: $gradient--default;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-size: $font-size--default;
+  line-height: $line-height;
+  min-height: 100%;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  @media print {
+    background: transparent;
+  }
+}
+
+.text--settled {
+  color: $c-light;
+
+  @media print {
+    color: $c-primary;
+  }
+}
+
+/////
+// Utility classes
+/////
+
+.c--neutral {
+  color: $c-neutral;
+}
+
+.bg--c-primary {
+  background: #fff;
+}
+
+.bg--success {
+  background: $c-success;
+  color: $c-light;
+}
+
+.bg--error {
+  background: $c-danger;
+  color: $c-light;
+}
+
+.spacing--bottom {
+  margin-bottom: $spacing--default;
+}
+
+/////
+// Utility classes
+/////
+
+button {
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  outline: none;
+  padding: 0;
+}

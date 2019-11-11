@@ -1,0 +1,39 @@
+<div class="record-list">
+  <div class="nav-bar nav-bar--top">
+    <a app-button [routerLink]="'/list' + (timeRange$ | async).prev.path">
+      <app-svg name="prev" size="medium"></app-svg>
+    </a>
+
+    <app-week-indicator
+      [year]="(timeRange$ | async).year"
+      [week]="(timeRange$ | async).week"
+      [from]="(timeRange$ | async).from"
+      [to]="(timeRange$ | async).to"
+    ></app-week-indicator>
+
+    <a app-button [routerLink]="'/list' + (timeRange$ | async).next.path">
+      <app-svg name="next" size="medium"></app-svg>
+    </a>
+  </div>
+
+  <div class="record-list__inner">
+    <div class="record-list__empty" *ngIf="records?.length === 0">
+      No data present
+    </div>
+    <app-record-list-item *ngFor="let record of records$ | async" [item]="record"></app-record-list-item>
+  </div>
+
+  <div class="nav-bar nav-bar--bottom">
+    <a app-button (click)="onSendClicked()">
+      <app-svg name="send" size="medium"></app-svg>
+    </a>
+
+    <a app-button size="large" [routerLink]="['/record/add']">
+      <app-svg name="plus" size="medium"></app-svg>
+    </a>
+
+    <a app-button [routerLink]="['/settings']">
+      <app-svg name="settings" size="medium"></app-svg>
+    </a>
+  </div>
+</div>

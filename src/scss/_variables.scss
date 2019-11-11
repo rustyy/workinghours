@@ -1,0 +1,28 @@
+/////
+// Colors
+/////
+$c-neutral: #ababab;
+
+$c-primary: #202536;
+$c-success: greenyellow;
+$c-danger: orangered;
+$c-light: white;
+
+/////
+// Typo
+////
+$font-size--init: 16px;
+$font-size--default: 1rem;
+$line-height: 1.5;
+$font-family--default: 'Helvetica Neue', Helvetica, sans-serif;
+$font-weight--default: 400;
+
+/////
+// Spacing
+/////
+
+$spacing--default: 20px;
+$border-radius--default: 5px;
+$interactive--box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.1);
+
+$gradient--default: linear-gradient(#64c5a6 10%, #1e8f9f 100%);

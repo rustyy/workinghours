@@ -1,0 +1,34 @@
+{
+  "W": "W",
+  "Mo": "Mo",
+  "Tu": "Tu",
+  "We": "We",
+  "Th": "Th",
+  "Fr": "Fr",
+  "Sa": "Sa",
+  "Su": "Su",
+  "SETTINGS": {
+    "NAME": "Your name",
+    "EMAIL": "Email to send to"
+  },
+  "DETAIL": {
+    "DATE": "Date",
+    "TYPE": "Type",
+    "START": "Starting work",
+    "END": "End of work",
+    "BREAK": "Break",
+    "OVERALL": "Overall",
+    "PROJECT": "Project"
+  },
+  "ERRORS": {
+    "OVERALLMISMATCH": "OVERALLMISMATCH",
+    "STARTENDMISMATCH": "End of work can not be equal or before starting work.",
+    "CONFLICTINGRECORD": "Your data conflicts with another entry:"
+  },
+  "TYPES": {
+    "type0": "default",
+    "type1": "illness",
+    "type2": "holiday",
+    "type3": "public holiday"
+  }
+}

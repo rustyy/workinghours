@@ -1,0 +1,49 @@
+@import 'src/scss/variables';
+
+.record-list {
+  margin-bottom: 120px;
+}
+
+.record-list__empty {
+  margin-top: 35vh;
+  text-align: center;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @supports (backdrop-filter: blur()) {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  @supports not (backdrop-filter: blur()) {
+    background: #f7f7f7; // @todo
+  }
+}
+
+.nav-bar--top {
+  position: sticky;
+  top: 0;
+
+  @media print {
+    [app-button] {
+      visibility: hidden;
+    }
+  }
+}
+
+.nav-bar--bottom {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  @media print {
+    display: none;
+  }
+}

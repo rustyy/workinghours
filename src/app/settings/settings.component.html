@@ -1,0 +1,20 @@
+<form [formGroup]="settingsForm" class="settings-form" (ngSubmit)="submit()">
+  <app-page [reverseBottom]="true">
+    <div data-slot="top">
+      <app-button-close></app-button-close>
+    </div>
+
+    <app-input class="spacing--bottom" [parentForm]="settingsForm" id="name" label="{{'SETTINGS.NAME' | translate}}" type="text"></app-input>
+
+    <app-input class="spacing--bottom" [parentForm]="settingsForm" id="email" label="{{'SETTINGS.EMAIL' | translate}}" type="email"></app-input>
+
+    <div class="spacing--bottom" style="color: #fff">VERSION: 0.0.1</div>
+
+    <ng-container data-slot="bottom">
+      <button app-button size="large" [modifier]="['save']" [disabled]="settingsForm.invalid" type="submit">
+        <app-svg name="checkmark"></app-svg>
+      </button>
+    </ng-container>
+
+  </app-page>
+</form>

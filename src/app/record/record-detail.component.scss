@@ -1,0 +1,14 @@
+@import "src/scss/variables";
+
+.record-detail--hidden {
+  display: none;
+}
+
+.error {
+  background: $c-danger;
+  border-radius: $border-radius--default;
+  box-shadow: $interactive--box-shadow;
+  color: $c-light;
+  padding: $border-radius--default;
+  margin-bottom: $spacing--default;
+}
