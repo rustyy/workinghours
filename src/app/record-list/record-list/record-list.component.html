@@ -1,26 +1,34 @@
 <div class="record-list">
   <div class="nav-bar nav-bar--top">
-    <a app-button [routerLink]="'/list' + (timeRange$ | async).prev.path">
-      <app-svg name="prev" size="medium"></app-svg>
-    </a>
+    <ng-container *ngIf="timeRange$ | async as timeRange">
+      <a app-button [routerLink]="'/list' + timeRange.prev.path">
+        <app-svg name="prev" size="medium"></app-svg>
+      </a>
 
-    <app-week-indicator
-      [year]="(timeRange$ | async).year"
-      [week]="(timeRange$ | async).week"
-      [from]="(timeRange$ | async).from"
-      [to]="(timeRange$ | async).to"
-    ></app-week-indicator>
+      <app-week-indicator
+        [year]="timeRange.year"
+        [week]="timeRange.week"
+        [from]="timeRange.from"
+        [to]="timeRange.to"
+      ></app-week-indicator>
 
-    <a app-button [routerLink]="'/list' + (timeRange$ | async).next.path">
-      <app-svg name="next" size="medium"></app-svg>
-    </a>
+      <a app-button [routerLink]="'/list' + timeRange.next.path">
+        <app-svg name="next" size="medium"></app-svg>
+      </a>
+    </ng-container>
   </div>
 
   <div class="record-list__inner">
-    <div class="record-list__empty" *ngIf="records?.length === 0">
-      No data present
-    </div>
-    <app-record-list-item *ngFor="let record of records$ | async" [item]="record"></app-record-list-item>
+    <ng-container *ngIf="records$ | async as records; else loading">
+      <div class="record-list__center" *ngIf="records.length === 0">
+        No data present
+      </div>
+      <app-record-list-item *ngFor="let record of records" [item]="record"></app-record-list-item>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="record-list__center">Loading ...</div>
+    </ng-template>
   </div>
 
   <div class="nav-bar nav-bar--bottom">
