@@ -6,7 +6,8 @@ import { RouterModule } from '@angular/router';
 const routes = [
   {
     path: 'settings',
-    component: SettingsComponent
+    component: SettingsComponent,
+    data: { animation: 'closable' }
   }
 ];
 

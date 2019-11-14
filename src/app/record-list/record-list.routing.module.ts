@@ -5,7 +5,8 @@ import { RecordListComponent } from './record-list/record-list.component';
 const routes = [
   {
     path: '',
-    component: RecordListComponent
+    component: RecordListComponent,
+    data: { animation: 'listPage' }
   },
   {
     path: 'list/:year/:week',

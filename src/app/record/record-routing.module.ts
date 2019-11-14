@@ -5,11 +5,13 @@ import { RecordDetailComponent } from './record-detail.component';
 const routes = [
   {
     path: 'record/add',
-    component: RecordDetailComponent
+    component: RecordDetailComponent,
+    data: { animation: 'closable' }
   },
   {
     path: 'record/:id',
-    component: RecordDetailComponent
+    component: RecordDetailComponent,
+    data: { animation: 'closable' }
   }
 ];
 
