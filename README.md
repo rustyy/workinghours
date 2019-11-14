@@ -1,10 +1,12 @@
 # Working Hours
-A tiny PWA to track your daily work - completely offline. All data is stored in indexedDB and localStorage 
+
+A tiny PWA to track your daily work - completely offline. All data is stored in indexedDB and localStorage
 so data persists only on the current device being used.
 
 See: [https://workinghours.rustyy.de](https://workinghours.rustyy.de)
 
 ## Features
+
 - works offline
 - track work on daily basis
 - send weekly reports by mail
@@ -17,10 +19,6 @@ See: [https://workinghours.rustyy.de](https://workinghours.rustyy.de)
 - optimize default entries
 - do not store data for types > 0
 - printable records
-- i18n
-    - update layer
-- page transitions
 - further documentation
 - week picker
 - week summary
-- delete modal warning
