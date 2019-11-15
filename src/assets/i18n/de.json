@@ -30,5 +30,7 @@
     "type1": "Krankheit",
     "type2": "Urlaub",
     "type3": "Feiertag"
-  }
+  },
+  "CONFIRM_DELETE_HEADLINE": "Eintrag löschen",
+  "CONFIRM_DELETE": "Sind Sie sicher? Diese Aktion kann nicht rückgängig gemacht werden."
 }

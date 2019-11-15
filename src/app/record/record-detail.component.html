@@ -1,29 +1,48 @@
-<form (ngSubmit)="submit()" [formGroup]="recordForm" class="record-detail"
-      [ngClass]="{'record-detail--hidden': !initialized}">
+<div @confirmTrigger class="confirmation" *ngIf="confirmation">
+  <div [@confirmMessageTrigger]="confirmation ? 'in' : 'out'" class="confirmation__message">
+    <b>{{ 'CONFIRM_DELETE_HEADLINE' | translate }}</b><br />
+    {{ 'CONFIRM_DELETE' | translate }}
+    <div appFlexContainer>
+      <button app-button (click)="cancelDelete()" size="large">
+        <app-svg name="close"></app-svg>
+      </button>
+      <button app-button (click)="confirmDelete()" size="large" [modifier]="['delete']">
+        <app-svg name="checkmark"></app-svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<form
+  (ngSubmit)="submit()"
+  [formGroup]="recordForm"
+  class="record-detail"
+  [ngClass]="{ 'record-detail--hidden': !initialized }"
+>
   <app-page [reverseBottom]="true" [reverseTop]="true">
     <ng-container data-slot="top">
       <app-button-close></app-button-close>
     </ng-container>
 
     <div class="record-detail__middle">
-      <input formControlName="id" type="hidden"/>
-      <input formControlName="created" type="hidden"/>
-      <input formControlName="updated" type="hidden"/>
+      <input formControlName="id" type="hidden" />
+      <input formControlName="created" type="hidden" />
+      <input formControlName="updated" type="hidden" />
 
       <div *ngIf="recordForm.errors && recordForm.errors.conflictingRecord" class="error">
         <div *ngFor="let record of recordForm.errors.conflictingRecord">
-          {{'ERRORS.CONFLICTINGRECORD' | translate}}
-          {{record.start | date:'dd.MM.yyyy'}}, {{record.start | date:'HH:mm'}} - {{record.end | date:'HH:mm'}}
+          {{ 'ERRORS.CONFLICTINGRECORD' | translate }}
+          {{ record.start | date: 'dd.MM.yyyy' }}, {{ record.start | date: 'HH:mm' }} - {{ record.end | date: 'HH:mm' }}
         </div>
       </div>
 
       <div appFlexContainer>
-        <app-input [parentForm]="recordForm" id="date" label="{{'DETAIL.DATE' | translate}}" type="date"></app-input>
+        <app-input [parentForm]="recordForm" id="date" label="{{ 'DETAIL.DATE' | translate }}" type="date"></app-input>
 
         <app-input
           [parentForm]="recordForm"
           id="type"
-          label="{{'DETAIL.TYPE' | translate}}"
+          label="{{ 'DETAIL.TYPE' | translate }}"
           type="select"
           [options]="types$ | async"
         ></app-input>
@@ -31,34 +50,47 @@
 
       <div *ngIf="+recordForm.controls.type.value === 0">
         <div appFlexContainer>
-          <app-input [parentForm]="recordForm" id="start" label="{{'DETAIL.START' | translate}}"
-                     type="time"></app-input>
+          <app-input
+            [parentForm]="recordForm"
+            id="start"
+            label="{{ 'DETAIL.START' | translate }}"
+            type="time"
+          ></app-input>
 
-          <app-input [parentForm]="recordForm" id="end" label="{{'DETAIL.END' | translate}}" type="time"></app-input>
+          <app-input [parentForm]="recordForm" id="end" label="{{ 'DETAIL.END' | translate }}" type="time"></app-input>
         </div>
 
         <div *ngIf="recordForm.errors && recordForm.errors.startEndMismatch" class="error">
-          {{'ERRORS.STARTENDMISMATCH' | translate}}
+          {{ 'ERRORS.STARTENDMISMATCH' | translate }}
         </div>
 
         <div appFlexContainer>
-          <app-input [parentForm]="recordForm" id="break" label="{{'DETAIL.BREAK' | translate}}" type="time"></app-input>
+          <app-input
+            [parentForm]="recordForm"
+            id="break"
+            label="{{'DETAIL.BREAK' | translate}}"
+            type="time"
+          ></app-input>
 
           <app-input
             [parentForm]="recordForm"
             id="overall"
-            label="{{'DETAIL.OVERALL' | translate}}"
+            label="{{ 'DETAIL.OVERALL' | translate }}"
             type="time"
             readonly="true"
           ></app-input>
         </div>
 
         <div *ngIf="recordForm.errors && recordForm.errors.overallMismatch" class="error">
-          {{'ERRORS.OVERALLMISMATCH' | translate}}
+          {{ 'ERRORS.OVERALLMISMATCH' | translate }}
         </div>
 
-        <app-input [parentForm]="recordForm" id="project" label="{{'DETAIL.PROJECT' | translate}}"
-                   type="text"></app-input>
+        <app-input
+          [parentForm]="recordForm"
+          id="project"
+          label="{{ 'DETAIL.PROJECT' | translate }}"
+          type="text"
+        ></app-input>
       </div>
     </div>
     <ng-container data-slot="bottom">

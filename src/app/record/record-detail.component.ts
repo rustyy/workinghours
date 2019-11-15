@@ -2,19 +2,22 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take } from 'rxjs/operators';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { Location } from '@angular/common';
 import { ValidatorService } from './validator.service';
 import { RecordService } from './record.service';
+import { confirmAnimation, confirmMessageAnimation } from './animations';
 
 @Component({
   selector: 'app-record-detail',
   templateUrl: './record-detail.component.html',
-  styleUrls: ['./record-detail.component.scss']
+  styleUrls: ['./record-detail.component.scss'],
+  animations: [confirmAnimation, confirmMessageAnimation]
 })
 export class RecordDetailComponent implements OnInit, OnDestroy {
   types$: Observable<any>;
   showDelete = false;
+  confirmation = false;
   initialized = false;
   private subscriptions: Subscription[] = [];
 
@@ -81,6 +84,16 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
    * Delete current record, go to previous page afterwards.
    */
   public deleteButtonClicked(): void {
+    this.confirmation = true;
+  }
+
+  public cancelDelete(): void {
+    this.confirmation = false;
+  }
+
+  public confirmDelete(): void {
+    this.confirmation = true;
+
     this.recordService
       .deleteRecord(this.recordForm.controls.id.value)
       .pipe(take(1))
