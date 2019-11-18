@@ -4,17 +4,19 @@ import { map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SendService } from '../../send/send.service';
 import { RecordListService } from '../record-list.service';
+import { transition, trigger, useAnimation } from '@angular/animations';
+import { listToList } from '../../shared/animations/listToList';
 
 @Component({
   selector: 'app-record-list',
   templateUrl: './record-list.component.html',
-  styleUrls: ['./record-list.component.scss']
+  styleUrls: ['./record-list.component.scss'],
+  animations: [trigger('list', [transition('* => *', [useAnimation(listToList)])])]
 })
 export class RecordListComponent implements OnInit {
   records$: Observable<TimeRecord[]>;
   // @Todo: interface.
   timeRange$: Observable<any>;
-  records: TimeRecord[];
 
   constructor(
     private route: ActivatedRoute,
