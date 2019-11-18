@@ -1,17 +1,18 @@
 import { ApplicationRef, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { slideInAnimation } from './animations';
 import { SwUpdate } from '@angular/service-worker';
 import { OnInit } from '@angular/core';
 import { concat, interval } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
+import { useAnimation, transition, trigger } from '@angular/animations';
+import { pageToPage } from './shared/animations/pageToPage';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [slideInAnimation]
+  animations: [trigger('routeAnimations', [transition('* <=> closable', [useAnimation(pageToPage)])])]
 })
 export class AppComponent implements OnInit {
   title = 'workinghours';
@@ -46,7 +47,6 @@ export class AppComponent implements OnInit {
   }
 
   prepareRoute(outlet: RouterOutlet) {
-    // console.log(outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation);
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
   }
 }
