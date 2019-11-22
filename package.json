@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "workinghours",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Felix Hofmann <felix.hofmann@rustyy.de>",
   "license": "MIT",
   "keywords": [
