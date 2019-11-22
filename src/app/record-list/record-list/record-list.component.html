@@ -35,7 +35,7 @@
   </ng-template>
 
   <div class="nav-bar nav-bar--bottom">
-    <a app-button (click)="sendMail()">
+    <a app-button [href]="mailUrl$ | async">
       <app-svg name="send" size="medium"></app-svg>
     </a>
 

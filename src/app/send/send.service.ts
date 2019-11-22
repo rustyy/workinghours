@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
+
 import { SettingsService } from '../settings/settings.service';
 import { HelperService } from '../shared/helper/helper.service';
 
@@ -9,27 +11,43 @@ import { HelperService } from '../shared/helper/helper.service';
   providedIn: 'root'
 })
 export class SendService {
-  constructor(private helperService: HelperService, private settingsService: SettingsService) {}
+  constructor(
+    private helperService: HelperService,
+    private settingsService: SettingsService,
+    private translateService: TranslateService
+  ) {}
 
-  mail(records$: Observable<TimeRecord[]>) {
+  mailUrl(records$: Observable<TimeRecord[]>): Observable<string> {
+    const types$ = this.translateService.get(`TYPES`);
+    return combineLatest([records$, types$]).pipe(map(this.mapper.bind(this)));
+  }
+
+  private mapper([records, typeTranslations]) {
     const mail = this.settingsService.getSetting('email');
     const name = this.settingsService.getSetting('name');
+    const mailBody = records.map(this.buildMailBody(typeTranslations));
 
-    records$.pipe(take(1)).subscribe(records => {
-      let location = `mailto:${mail}?subject=workinghours`;
+    return `mailto:${mail}?subject=workinghours&body=${escape(name)}${escape(mailBody.join(''))}`;
+  }
 
-      const mailBody = records.map(record => {
-        const day = moment(record.start).format('dd DD.MM.YYYY');
-        const start = moment(record.start).format('HH:mm');
-        const end = moment(record.end).format('HH:mm');
-        const overall = this.helperService.minutesToHhMm(record.overall);
-        const project = record.project || '--';
+  private buildMailBody(typeTranslations) {
+    return record => {
+      const day = moment(record.start).format('dd DD.MM.YYYY');
+      const start = moment(record.start).format('HH:mm');
+      const end = moment(record.end).format('HH:mm');
+      const project = record.project || '--';
+      const { type } = record;
 
-        return `\n${day} ---- ${start} - ${end} ---- ${overall}h\nProject: ${project}\n________________________________________\n`;
-      });
+      const startEnd = type > 0 ? typeTranslations[`type${type}`] : `${start} - ${end}`;
+      const overall = type > 0 ? '' : `${this.helperService.minutesToHhMm(record.overall)}h`;
 
-      location += `&body=${escape(name)}${escape(mailBody.join(''))}`;
-      window.location.href = location;
-    });
+      const lines = [
+        [day, startEnd, overall].filter(id => id).join('          '),
+        `Project: ${project}`,
+        '________________________________________'
+      ].join('\n');
+
+      return '\n' + lines + '\n';
+    };
   }
 }
