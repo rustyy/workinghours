@@ -4,29 +4,26 @@ import * as moment from 'moment';
 
 import { HelperService } from '../shared/helper/helper.service';
 import { DatabaseService } from '../shared/database/database.service';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecordListService {
-  constructor(private helperService: HelperService, private databaseService: DatabaseService) {}
+  constructor(private helperService: HelperService, private db: DatabaseService) {}
 
-  public getRecords({ year, week }: { year: number; week: number }): Observable<TimeRecord[]> {
-    const { minTime, maxTime } = this.helperService.getMinMaxTime(year, week);
-    const records$ = this.databaseService.getRecordsInTimeRange(minTime, maxTime);
-    const types$ = this.databaseService.getTypes();
-
-    const addTypeNameToRecords = (data: [TimeRecord[], TimeRecordType[]]) => {
-      const [records, types] = data;
-
-      return records.map((record: TimeRecord) => {
-        record.typeName = types[record.type].name;
-        return record;
-      });
-    };
-
-    return forkJoin(records$, types$).pipe(map(addTypeNameToRecords));
+  /**
+   * Fetches records based on the given route-params.
+   * Time range is calculated by year & week param.
+   * If params are missing falls back to current week.
+   */
+  public recordsByRouteParams(params: Params) {
+    return params.pipe(
+      map(({ year, week }) => this.mapYearWeek({ year, week })),
+      map(({ year, week }) => this.helperService.getMinMaxTime(year, week)),
+      switchMap((o: any) => this.getRecords(o))
+    );
   }
 
   public mapYearWeek({ year, week }: { year: string | number; week: string | number }): { year: number; week: number } {
@@ -34,12 +31,9 @@ export class RecordListService {
     const yearDefault = now.format('YYYY');
     const weekDefault = now.isoWeek();
 
-    year = year || yearDefault;
-    week = week || weekDefault;
-
     return {
-      year: +year,
-      week: +week
+      year: +(year || yearDefault),
+      week: +(week || weekDefault)
     };
   }
 
@@ -56,7 +50,17 @@ export class RecordListService {
     };
   }
 
-  public getTypeNameById(id: number): Observable<TimeRecordType> {
-    return this.databaseService.getType(id);
+  private getRecords({ minTime, maxTime }: { minTime: number; maxTime: number }): Observable<TimeRecord[]> {
+    return forkJoin({
+      records: this.db.getRecordsInTimeRange(minTime, maxTime),
+      types: this.db.getTypes()
+    }).pipe(map(this.recordTypeMapper));
+  }
+
+  private recordTypeMapper({ records, types }: { records: TimeRecord[]; types: TimeRecordType[] }) {
+    return records.map((record: TimeRecord) => {
+      record.typeName = types[record.type].name;
+      return record;
+    });
   }
 }

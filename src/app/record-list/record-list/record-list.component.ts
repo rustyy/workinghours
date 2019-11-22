@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { SendService } from '../../send/send.service';
 import { RecordListService } from '../record-list.service';
@@ -24,20 +24,13 @@ export class RecordListComponent implements OnInit {
     private sendService: SendService
   ) {}
 
-  ngOnInit() {
-    this.setRecords();
+  ngOnInit(): void {
+    this.records$ = this.recordService.recordsByRouteParams(this.route.params);
     this.setYearWeek();
   }
 
-  onSendClicked(): void {
+  sendMail(): void {
     this.sendService.mail(this.records$);
-  }
-
-  private setRecords(): void {
-    this.records$ = this.route.params.pipe(
-      map(({ year, week }) => this.recordService.mapYearWeek({ year, week })),
-      switchMap(o => this.recordService.getRecords(o))
-    );
   }
 
   private setYearWeek(): void {
