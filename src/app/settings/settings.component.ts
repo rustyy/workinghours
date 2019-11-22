@@ -3,12 +3,15 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { SettingsService } from './settings.service';
 import { Location } from '@angular/common';
 
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  environment = environment;
   settingsForm = this.fb.group({
     name: [null],
     email: [null, Validators.email]
