@@ -12,24 +12,3 @@
   padding: $border-radius--default;
   margin-bottom: $spacing--default;
 }
-
-.confirmation {
-  align-content: space-around;
-  align-items: center;
-  background: rgba(#000, 0.7);
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 1;
-}
-
-.confirmation__message {
-  background: $c-light;
-  border-radius: $border-radius--default;
-  margin: $spacing--default;
-  padding: $spacing--default;
-}

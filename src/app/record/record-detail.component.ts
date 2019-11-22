@@ -6,13 +6,11 @@ import { Observable, Subscription, of } from 'rxjs';
 import { Location } from '@angular/common';
 import { ValidatorService } from './validator.service';
 import { RecordService } from './record.service';
-import { confirmAnimation, confirmMessageAnimation } from './animations';
 
 @Component({
   selector: 'app-record-detail',
   templateUrl: './record-detail.component.html',
-  styleUrls: ['./record-detail.component.scss'],
-  animations: [confirmAnimation, confirmMessageAnimation]
+  styleUrls: ['./record-detail.component.scss']
 })
 export class RecordDetailComponent implements OnInit, OnDestroy {
   types$: Observable<any>;
