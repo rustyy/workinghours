@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
-import Dexie from 'dexie';
-
 import { TimesheetDatabase } from './TimesheetDatabase';
 
 @Injectable({
@@ -26,22 +24,13 @@ export class DatabaseService {
     return from(this.db.records.get({ id }));
   }
 
-  getRecordsInTimeRange(start, end) {
+  public getRecordsInTimeRange(start, end) {
     return from(
       this.db.records
         .where('start')
         .aboveOrEqual(start)
         .and(row => row.end <= end)
         .toArray()
-    );
-  }
-
-  getType(id: number): Observable<TimeRecordType> {
-    return from(
-      this.db.types
-        .where('id')
-        .equals(id)
-        .first()
     );
   }
 
