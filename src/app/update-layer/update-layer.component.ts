@@ -8,9 +8,6 @@ import { updateLayer } from './animations';
   animations: [updateLayer]
 })
 export class UpdateLayerComponent implements OnInit {
-  @Input()
-  show = false;
-
   constructor() {}
 
   ngOnInit() {}

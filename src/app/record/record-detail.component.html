@@ -1,4 +1,4 @@
-<app-modal *ngIf="confirmation">
+<app-modal [visible]="confirmation">
   <b>{{ 'CONFIRM_DELETE_HEADLINE' | translate }}</b><br />
   {{ 'CONFIRM_DELETE' | translate }}
   <div appFlexContainer>

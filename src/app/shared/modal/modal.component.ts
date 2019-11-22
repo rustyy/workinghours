@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { confirmAnimation } from './animations';
 
 @Component({
@@ -8,6 +8,9 @@ import { confirmAnimation } from './animations';
   animations: [confirmAnimation]
 })
 export class ModalComponent implements OnInit {
+  @Input()
+  visible = false;
+
   constructor() {}
 
   ngOnInit() {}
