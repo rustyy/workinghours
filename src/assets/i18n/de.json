@@ -32,5 +32,9 @@
     "type3": "Feiertag"
   },
   "CONFIRM_DELETE_HEADLINE": "Eintrag löschen",
-  "CONFIRM_DELETE": "Sind Sie sicher? Diese Aktion kann nicht rückgängig gemacht werden."
+  "CONFIRM_DELETE": "Sind Sie sicher? Diese Aktion kann nicht rückgängig gemacht werden.",
+  "UPDATE": {
+    "NEW": "Es ist ein Update verfügbar.",
+    "INSTALL": "installieren"
+  }
 }
