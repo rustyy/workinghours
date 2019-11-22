@@ -1,4 +1,7 @@
-<div @updateLayer *ngIf="show" class="update-layer">
-  <div>Update available.</div>
-  <button (click)="installUpdateClick()" class="update-layer__button" type="button">install update</button>
-</div>
+<app-modal>
+  <div class="spacing--bottom">
+    {{'UPDATE.NEW' | translate}}
+  </div>
+
+  <button (click)="installUpdateClick()" class="update-layer__button" type="button">{{'UPDATE.INSTALL' | translate}}</button>
+</app-modal>

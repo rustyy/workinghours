@@ -32,5 +32,9 @@
     "type3": "public holiday"
   },
   "CONFIRM_DELETE_HEADLINE": "Delete entry",
-  "CONFIRM_DELETE": "Are you sure you? This action cannot be undone."
+  "CONFIRM_DELETE": "Are you sure you? This action cannot be undone.",
+  "UPDATE": {
+    "NEW": "Update available.",
+    "INSTALL": "install"
+  }
 }

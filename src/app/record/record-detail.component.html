@@ -1,17 +1,15 @@
-<div @confirmTrigger class="confirmation" *ngIf="confirmation">
-  <div [@confirmMessageTrigger]="confirmation ? 'in' : 'out'" class="confirmation__message">
-    <b>{{ 'CONFIRM_DELETE_HEADLINE' | translate }}</b><br />
-    {{ 'CONFIRM_DELETE' | translate }}
-    <div appFlexContainer>
-      <button app-button (click)="cancelDelete()" size="large">
-        <app-svg name="close"></app-svg>
-      </button>
-      <button app-button (click)="confirmDelete()" size="large" [modifier]="['delete']">
-        <app-svg name="checkmark"></app-svg>
-      </button>
-    </div>
+<app-modal *ngIf="confirmation">
+  <b>{{ 'CONFIRM_DELETE_HEADLINE' | translate }}</b><br />
+  {{ 'CONFIRM_DELETE' | translate }}
+  <div appFlexContainer>
+    <button app-button (click)="cancelDelete()" size="large">
+      <app-svg name="close"></app-svg>
+    </button>
+    <button app-button (click)="confirmDelete()" size="large" [modifier]="['delete']">
+      <app-svg name="checkmark"></app-svg>
+    </button>
   </div>
-</div>
+</app-modal>
 
 <form
   (ngSubmit)="submit()"

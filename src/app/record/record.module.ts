@@ -10,6 +10,7 @@ import { ButtonModule } from '../shared/button/button.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
 import { ValidatorService } from './validator.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { ModalModule } from '../shared/modal/modal.module';
 
 @NgModule({
   declarations: [RecordDetailComponent],
@@ -23,7 +24,8 @@ import { TranslateModule } from '@ngx-translate/core';
     ButtonModule,
     DirectivesModule,
     RecordRoutingModule,
-    TranslateModule
+    TranslateModule,
+    ModalModule
   ],
   exports: [RecordDetailComponent, RecordRoutingModule],
   providers: [ValidatorService]
