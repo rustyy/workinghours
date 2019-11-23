@@ -1,5 +1,6 @@
 <app-modal [visible]="confirmation">
-  <b>{{ 'CONFIRM_DELETE_HEADLINE' | translate }}</b><br />
+  <b>{{ 'CONFIRM_DELETE_HEADLINE' | translate }}</b>
+  <br />
   {{ 'CONFIRM_DELETE' | translate }}
   <div appFlexContainer>
     <button app-button (click)="cancelDelete()" size="large">
@@ -66,7 +67,7 @@
           <app-input
             [parentForm]="recordForm"
             id="break"
-            label="{{'DETAIL.BREAK' | translate}}"
+            label="{{ 'DETAIL.BREAK' | translate }}"
             type="time"
           ></app-input>
 
@@ -78,18 +79,14 @@
             readonly="true"
           ></app-input>
         </div>
-
-        <div *ngIf="recordForm.errors && recordForm.errors.overallMismatch" class="error">
-          {{ 'ERRORS.OVERALLMISMATCH' | translate }}
-        </div>
-
-        <app-input
-          [parentForm]="recordForm"
-          id="project"
-          label="{{ 'DETAIL.PROJECT' | translate }}"
-          type="text"
-        ></app-input>
       </div>
+
+      <app-input
+        [parentForm]="recordForm"
+        id="project"
+        label="{{ 'DETAIL.PROJECT' | translate }}"
+        type="text"
+      ></app-input>
     </div>
     <ng-container data-slot="bottom">
       <button app-button size="large" [modifier]="['save']" [disabled]="!recordForm.valid" type="submit">

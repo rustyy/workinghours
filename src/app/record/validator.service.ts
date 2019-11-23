@@ -25,18 +25,6 @@ export class ValidatorService {
     };
   }
 
-  validateBreakOverall(): ValidatorFn {
-    return (control: FormGroup): ValidationErrors | null => {
-      if (['00:00', ''].indexOf(control.controls.overall.value) > -1) {
-        return {
-          overallMismatch: true
-        };
-      }
-
-      return null;
-    };
-  }
-
   validateUniqueEntry(): ValidatorFn {
     return (formGroup: FormGroup): Observable<ValidationErrors | null> => {
       const dateValue = formGroup.controls.date.value;

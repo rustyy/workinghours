@@ -3,7 +3,7 @@
 
   <div class="input__wrapper" [ngClass]="{
         'input__wrapper--valid': parentForm.controls[id].valid && parentForm.controls[id].dirty,
-        'input__wrapper--invalid': parentForm.controls[id].invalid && parentForm.controls[id].dirty
+        'input__wrapper--invalid': !parentForm.controls[id].valid && parentForm.controls[id].dirty
     }">
 
     <ng-container [ngSwitch]="type">

@@ -33,7 +33,7 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
       project: ['']
     },
     {
-      validators: [this.validatorService.validateStartEnd(), this.validatorService.validateBreakOverall()],
+      validators: [this.validatorService.validateStartEnd()],
       asyncValidators: [this.validatorService.validateUniqueEntry()]
     }
   );
