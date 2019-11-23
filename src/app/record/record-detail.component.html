@@ -92,7 +92,7 @@
       </div>
     </div>
     <ng-container data-slot="bottom">
-      <button app-button size="large" [modifier]="['save']" [disabled]="recordForm.invalid" type="submit">
+      <button app-button size="large" [modifier]="['save']" [disabled]="!recordForm.valid" type="submit">
         <app-svg name="checkmark"></app-svg>
       </button>
       <button
