@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { SettingsService } from './settings.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
-
 import { environment } from '../../environments/environment';
+
+import { SettingsService } from './settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -12,21 +12,22 @@ import { environment } from '../../environments/environment';
 })
 export class SettingsComponent implements OnInit {
   environment = environment;
-  settingsForm = this.fb.group({
-    name: [null],
-    email: [null, Validators.email]
-  });
+  settingsForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private settingsService: SettingsService, private location: Location) {}
+  constructor(private fb: FormBuilder, private settings: SettingsService, private location: Location) {}
 
   ngOnInit() {
-    ['name', 'email'].forEach(setting => {
-      this.settingsForm.controls[setting].setValue(this.settingsService.getSetting(setting) || '');
+    const nameValue = this.settings.getSetting('name') || '';
+    const emailValue = this.settings.getSetting('email') || '';
+
+    this.settingsForm = this.fb.group({
+      name: [nameValue],
+      email: [emailValue, Validators.email]
     });
   }
 
   submit() {
-    this.settingsService.updateSettings(this.settingsForm.value);
+    this.settings.updateSettings(this.settingsForm.value);
     this.location.back();
   }
 }
