@@ -36,27 +36,22 @@
       </div>
 
       <div appFlexContainer>
-        <app-input [parentForm]="recordForm" id="date" label="{{ 'DETAIL.DATE' | translate }}" type="date"></app-input>
+        <app-input [label]="'DETAIL.DATE' | translate" [parentForm]="recordForm" id="date" type="date"></app-input>
 
         <app-input
+          [label]="'DETAIL.TYPE' | translate"
+          [options]="types$ | async"
           [parentForm]="recordForm"
           id="type"
-          label="{{ 'DETAIL.TYPE' | translate }}"
           type="select"
-          [options]="types$ | async"
         ></app-input>
       </div>
 
       <div *ngIf="+recordForm.controls.type.value === 0">
         <div appFlexContainer>
-          <app-input
-            [parentForm]="recordForm"
-            id="start"
-            label="{{ 'DETAIL.START' | translate }}"
-            type="time"
-          ></app-input>
+          <app-input [label]="'DETAIL.START' | translate" [parentForm]="recordForm" id="start" type="time"></app-input>
 
-          <app-input [parentForm]="recordForm" id="end" label="{{ 'DETAIL.END' | translate }}" type="time"></app-input>
+          <app-input [label]="'DETAIL.END' | translate" [parentForm]="recordForm" id="end" type="time"></app-input>
         </div>
 
         <div *ngIf="recordForm.errors && recordForm.errors.startEndMismatch" class="error">
@@ -64,40 +59,30 @@
         </div>
 
         <div appFlexContainer>
-          <app-input
-            [parentForm]="recordForm"
-            id="break"
-            label="{{ 'DETAIL.BREAK' | translate }}"
-            type="time"
-          ></app-input>
+          <app-input [label]="'DETAIL.BREAK' | translate" [parentForm]="recordForm" id="break" type="time"></app-input>
 
           <app-input
+            [label]="'DETAIL.OVERALL' | translate"
             [parentForm]="recordForm"
             id="overall"
-            label="{{ 'DETAIL.OVERALL' | translate }}"
-            type="time"
             readonly="true"
+            type="time"
           ></app-input>
         </div>
       </div>
 
-      <app-input
-        [parentForm]="recordForm"
-        id="project"
-        label="{{ 'DETAIL.PROJECT' | translate }}"
-        type="text"
-      ></app-input>
+      <app-input [label]="'DETAIL.PROJECT' | translate" [parentForm]="recordForm" id="project" type="text"></app-input>
     </div>
     <ng-container data-slot="bottom">
-      <button app-button size="large" [modifier]="['save']" [disabled]="!recordForm.valid" type="submit">
+      <button [disabled]="!recordForm.valid" [modifier]="['save']" app-button size="large" type="submit">
         <app-svg name="checkmark"></app-svg>
       </button>
       <button
-        app-button
-        size="large"
-        [modifier]="['delete']"
         (click)="deleteButtonClicked()"
         *ngIf="showDelete"
+        [modifier]="['delete']"
+        app-button
+        size="large"
         type="button"
       >
         <app-svg name="trash"></app-svg>

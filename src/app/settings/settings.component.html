@@ -4,27 +4,37 @@
       <app-button-close></app-button-close>
     </div>
 
-    <app-input class="spacing--bottom" [parentForm]="settingsForm" id="name" label="{{'SETTINGS.NAME' | translate}}" type="text"></app-input>
+    <app-input
+      [parentForm]="settingsForm"
+      [label]="'SETTINGS.NAME' | translate"
+      class="spacing--bottom"
+      id="name"
+      type="text"
+    ></app-input>
 
-    <app-input class="spacing--bottom" [parentForm]="settingsForm" id="email" label="{{'SETTINGS.EMAIL' | translate}}" type="email"></app-input>
+    <app-input
+      [parentForm]="settingsForm"
+      [label]="'SETTINGS.EMAIL' | translate"
+      class="spacing--bottom"
+      id="email"
+      type="email"
+    ></app-input>
 
-    <div class="spacing--bottom" style="color: #fff">VERSION: {{environment.version}}</div>
+    <div class="spacing--bottom" style="color: #fff">VERSION: {{ environment.version }}</div>
 
-
-    <div class="spacing--bottom text--settled">Icons by <a href="https://iconmonstr.com/" title="go to iconmonstr.com">iconmonstr</a></div>
+    <div class="spacing--bottom text--settled">
+      Icons by <a href="https://iconmonstr.com/" title="go to iconmonstr.com">iconmonstr</a>
+    </div>
     <div class="spacing--bottom">
       <a href="https://github.com/rustyy/workinghours" title="workinghours on github">
         <app-svg name="github" size="medium"></app-svg>
       </a>
     </div>
 
-
-
     <ng-container data-slot="bottom">
       <button app-button size="large" [modifier]="['save']" [disabled]="settingsForm.invalid" type="submit">
         <app-svg name="checkmark"></app-svg>
       </button>
     </ng-container>
-
   </app-page>
 </form>
