@@ -17,8 +17,8 @@ export class SettingsComponent implements OnInit {
   constructor(private fb: FormBuilder, private settings: SettingsService, private location: Location) {}
 
   ngOnInit() {
-    const nameValue = this.settings.getSetting('name') || '';
-    const emailValue = this.settings.getSetting('email') || '';
+    const nameValue = this.settings.get('name') || '';
+    const emailValue = this.settings.get('email') || '';
 
     this.settingsForm = this.fb.group({
       name: [nameValue],
@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
   }
 
   submit() {
-    this.settings.updateSettings(this.settingsForm.value);
+    this.settings.updateMultiple(this.settingsForm.value);
     this.location.back();
   }
 }

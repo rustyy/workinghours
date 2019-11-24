@@ -23,8 +23,8 @@ export class SendService {
   }
 
   private mapper([records, typeTranslations]) {
-    const mail = this.settingsService.getSetting('email');
-    const name = this.settingsService.getSetting('name');
+    const mail = this.settingsService.get('email');
+    const name = this.settingsService.get('name');
     const mailBody = records.map(this.buildMailBody(typeTranslations));
 
     return `mailto:${mail}?subject=workinghours&body=${escape(name)}${escape(mailBody.join(''))}`;
