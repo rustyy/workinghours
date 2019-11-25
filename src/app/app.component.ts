@@ -1,7 +1,6 @@
-import { ApplicationRef, Component } from '@angular/core';
+import { ApplicationRef, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
-import { OnInit } from '@angular/core';
 import { concat, interval } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
