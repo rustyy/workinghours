@@ -6,10 +6,10 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./week-indicator.component.scss']
 })
 export class WeekIndicatorComponent {
-  @Input() year;
-  @Input() week;
-  @Input() from;
-  @Input() to;
+  @Input() year: number;
+  @Input() week: number;
+  @Input() from: string;
+  @Input() to: string;
 
   constructor() {}
 }
