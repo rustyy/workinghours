@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import * as moment from 'moment';
 import { HelperService } from '../shared/helper/helper.service';
 import { FormGroup } from '@angular/forms';
@@ -23,11 +23,11 @@ export class RecordService {
 
   public addRecord(formData): Observable<number> {
     const record = this.formDataToRecord(formData);
-    return this.databaseService.addRecord(record);
+    return this.databaseService.addRecord(record).pipe(take(1));
   }
 
   public deleteRecord(id: number): Observable<void> {
-    return this.databaseService.deleteRecord(id);
+    return this.databaseService.deleteRecord(id).pipe(take(1));
   }
 
   public setControlValues(fg: FormGroup, record: TimeRecord): void {

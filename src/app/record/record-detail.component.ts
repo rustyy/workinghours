@@ -72,10 +72,7 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
    * Store entry and go back to previous page.
    */
   public submit(): void {
-    this.recordService
-      .addRecord(this.recordForm.value)
-      .pipe(take(1))
-      .subscribe(() => this.location.back());
+    this.recordService.addRecord(this.recordForm.value).subscribe(() => this.location.back());
   }
 
   /**
@@ -91,11 +88,7 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
 
   public confirmDelete(): void {
     this.confirmation = true;
-
-    this.recordService
-      .deleteRecord(this.recordForm.controls.id.value)
-      .pipe(take(1))
-      .subscribe(() => this.location.back());
+    this.recordService.deleteRecord(this.recordForm.controls.id.value).subscribe(() => this.location.back());
   }
 
   /**
