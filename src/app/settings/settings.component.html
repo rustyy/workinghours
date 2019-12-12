@@ -20,6 +20,14 @@
       type="email"
     ></app-input>
 
+    <app-input
+      [parentForm]="settingsForm"
+      [label]="'SETTINGS.WEEKLY_HOURS' | translate"
+      class="spacing--bottom"
+      id="weeklyHours"
+      type="number"
+    ></app-input>
+
     <div class="spacing--bottom" style="color: #fff">VERSION: {{ environment.version }}</div>
 
     <div class="spacing--bottom text--settled">

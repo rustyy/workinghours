@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
+
 import { forkJoin, Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+
 import * as moment from 'moment';
 
-import { HelperService } from '../shared/helper/helper.service';
 import { DatabaseService } from '../shared/database/database.service';
-import { map, switchMap } from 'rxjs/operators';
-import { Params } from '@angular/router';
+import { HelperService } from '../shared/helper/helper.service';
+import { SettingsService } from '../settings/settings.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecordListService {
-  constructor(private helperService: HelperService, private db: DatabaseService) {}
+  constructor(private helperService: HelperService, private db: DatabaseService, private settings: SettingsService) {}
 
   /**
    * Fetches records based on the given route-params.
@@ -48,6 +51,29 @@ export class RecordListService {
       from: minTime,
       to: maxTime
     };
+  }
+
+  public sumHours(records: Observable<TimeRecord[]>): Observable<number> {
+    return records.pipe(
+      map((recs: TimeRecord[]) => recs.map(r => r.overall)),
+      map((recs: []) => recs.reduce((acc: number, curr: number) => acc + curr, 0) / 60)
+    );
+  }
+
+  public summary(records: Observable<TimeRecord[]>): Observable<any> {
+    const weeklyHours = +(this.settings.get('weeklyHours') || 0);
+    return this.sumHours(records).pipe(
+      map(sum => {
+        const result = { current: sum } as any;
+
+        if (weeklyHours) {
+          result.max = weeklyHours;
+          result.progress = +Math.ceil((sum / weeklyHours) * 100).toFixed(2);
+        }
+
+        return result;
+      })
+    );
   }
 
   private getRecords({ minTime, maxTime }: { minTime: number; maxTime: number }): Observable<TimeRecord[]> {

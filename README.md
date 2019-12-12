@@ -21,4 +21,3 @@ See: [https://workinghours.rustyy.de](https://workinghours.rustyy.de)
 - printable records
 - further documentation
 - week picker
-- week summary
