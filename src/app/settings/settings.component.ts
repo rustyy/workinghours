@@ -19,10 +19,12 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     const nameValue = this.settings.get('name') || '';
     const emailValue = this.settings.get('email') || '';
+    const hoursValue = this.settings.get('weeklyHours') || '';
 
     this.settingsForm = this.fb.group({
       name: [nameValue],
-      email: [emailValue, Validators.email]
+      email: [emailValue, Validators.email],
+      weeklyHours: [hoursValue]
     });
   }
 

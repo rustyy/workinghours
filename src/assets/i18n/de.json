@@ -9,7 +9,8 @@
   "Su": "So",
   "SETTINGS": {
     "NAME": "Ihr Name",
-    "EMAIL": "E-Mail-Adresse des Empfängers"
+    "EMAIL": "E-Mail-Adresse des Empfängers",
+    "WEEKLY_HOURS": "Wochenstunden"
   },
   "DETAIL": {
     "DATE": "Datum",
