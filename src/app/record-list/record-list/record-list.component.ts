@@ -18,6 +18,7 @@ export class RecordListComponent implements OnInit {
   // @Todo: interface.
   timeRange$: Observable<any>;
   mailUrl$: Observable<string>;
+  summary$: Observable<number>;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +30,8 @@ export class RecordListComponent implements OnInit {
     this.records$ = this.recordService.recordsByRouteParams(this.route.params);
     this.mailUrl$ = this.sendService.mailUrl(this.records$);
     this.setYearWeek();
+
+    this.summary$ = this.recordService.summary(this.records$);
   }
 
   private setYearWeek(): void {

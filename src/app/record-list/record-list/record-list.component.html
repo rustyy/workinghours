@@ -1,6 +1,6 @@
 <div class="record-list">
-  <div class="nav-bar nav-bar--top">
-    <ng-container *ngIf="timeRange$ | async as timeRange">
+  <div class="record-list__nav-bar record-list__nav-bar--top">
+    <div class="record-list__selector" *ngIf="timeRange$ | async as timeRange">
       <a app-button [routerLink]="'/list' + timeRange.prev.path">
         <app-svg name="prev" size="medium"></app-svg>
       </a>
@@ -15,16 +15,27 @@
       <a app-button [routerLink]="'/list' + timeRange.next.path">
         <app-svg name="next" size="medium"></app-svg>
       </a>
-    </ng-container>
+    </div>
+    <div class="record-list__summary" *ngIf="summary$ | async as summary">
+      <div>
+        {{ summary.current }} <ng-container *ngIf="summary.max">/ {{ summary.max }}</ng-container
+        >h
+      </div>
+      <div
+        *ngIf="summary.progress >= 0"
+        [style.width]="summary.progress + '%'"
+        class="record-list__summary-progress"
+      ></div>
+    </div>
   </div>
 
   <ng-container *ngIf="records$ | async as records; else loading">
-    <div [@list]="records" class="record-list__inner">
+    <div [@list]="records">
       <div *ngFor="let record of records">
         <app-record-list-item [item]="record"></app-record-list-item>
       </div>
 
-      <div class="record-list__center" *ngIf="records.length === 0">
+      <div class="record-list__no-data" *ngIf="records.length === 0">
         No data present
       </div>
     </div>
@@ -34,17 +45,19 @@
     <div class="record-list__center">Loading ...</div>
   </ng-template>
 
-  <div class="nav-bar nav-bar--bottom">
-    <a app-button [href]="mailUrl$ | async">
-      <app-svg name="send" size="medium"></app-svg>
-    </a>
+  <div class="record-list__nav-bar record-list__nav-bar--bottom">
+    <div class="record-list__actions">
+      <a app-button [href]="mailUrl$ | async">
+        <app-svg name="send" size="medium"></app-svg>
+      </a>
 
-    <a app-button size="large" [routerLink]="['/record/add']">
-      <app-svg name="plus" size="medium"></app-svg>
-    </a>
+      <a app-button size="large" [routerLink]="['/record/add']">
+        <app-svg name="plus" size="medium"></app-svg>
+      </a>
 
-    <a app-button [routerLink]="['/settings']">
-      <app-svg name="settings" size="medium"></app-svg>
-    </a>
+      <a app-button [routerLink]="['/settings']">
+        <app-svg name="settings" size="medium"></app-svg>
+      </a>
+    </div>
   </div>
 </div>
