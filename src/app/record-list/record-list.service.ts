@@ -56,7 +56,11 @@ export class RecordListService {
   public sumHours(records: Observable<TimeRecord[]>): Observable<number> {
     return records.pipe(
       map((recs: TimeRecord[]) => recs.map(r => r.overall)),
-      map((recs: []) => recs.reduce((acc: number, curr: number) => acc + curr, 0) / 60)
+      map((recs: []) => {
+        const hours = recs.reduce((acc: number, curr: number) => acc + curr, 0) / 60;
+        // 2 decimal place.
+        return Math.round(hours * 100) / 100;
+      })
     );
   }
 
@@ -68,7 +72,7 @@ export class RecordListService {
 
         if (weeklyHours) {
           result.max = weeklyHours;
-          result.progress = +Math.ceil((sum / weeklyHours) * 100).toFixed(2);
+          result.progress = Math.ceil((sum / weeklyHours) * 100);
         }
 
         return result;
