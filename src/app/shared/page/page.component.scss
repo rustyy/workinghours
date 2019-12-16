@@ -10,8 +10,6 @@
 .page__top,
 .page__bottom {
   position: sticky;
-  display: flex;
-  justify-content: space-between;
 
   @supports (backdrop-filter: blur()) {
     backdrop-filter: blur(20px);
@@ -35,7 +33,12 @@
   bottom: 0;
 }
 
-[class*="--reverse"] {
-  flex-direction: row-reverse;
+[class*="--actions"],
+[class*="--actions-reverse"] {
+  display: flex;
+  justify-content: space-between;
 }
 
+[class*="--actions-reverse"] {
+  flex-direction: row-reverse;
+}

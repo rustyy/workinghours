@@ -1,5 +1,5 @@
 <form [formGroup]="settingsForm" class="settings-form" (ngSubmit)="submit()">
-  <app-page [reverseBottom]="true">
+  <app-page [modifierTop]="['actions-reverse']" [modifierBottom]="['actions-reverse']">
     <div data-slot="top">
       <app-button-close></app-button-close>
     </div>

@@ -4,8 +4,7 @@
   margin-bottom: 120px;
 }
 
-.record-list__no-data {
-  margin-top: 35vh;
+.record-list__placeholder {
   text-align: center;
 }
 
@@ -32,44 +31,8 @@
   z-index: -1;
 }
 
-.record-list__actions,
 .record-list__selector {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.record-list__nav-bar {
-  @supports (backdrop-filter: blur()) {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-  }
-
-  @supports not (backdrop-filter: blur()) {
-    background: #f7f7f7; // @todo
-  }
-}
-
-.record-list__nav-bar--top {
-  position: sticky;
-  top: 0;
-
-  @media print {
-    [app-button] {
-      visibility: hidden;
-    }
-  }
-}
-
-.record-list__nav-bar--bottom {
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  right: 0;
-  max-width: 1000px;
-  margin: 0 auto;
-
-  @media print {
-    display: none;
-  }
 }

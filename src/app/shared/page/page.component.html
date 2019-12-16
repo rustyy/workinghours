@@ -1,11 +1,11 @@
 <div class="page">
-  <div class="page__top" [ngClass]="{'page__top--reverse': reverseTop}">
+  <div class="page__top" [ngClass]="modTop">
     <ng-content select="[data-slot='top']"></ng-content>
   </div>
-  <div class="page__center">
+  <div class="page__center" [ngClass]="modCenter">
     <ng-content></ng-content>
   </div>
-  <div class="page__bottom" [ngClass]="{'page__bottom--reverse': reverseBottom}">
+  <div class="page__bottom" [ngClass]="modBottom">
     <ng-content select="[data-slot='bottom']"></ng-content>
   </div>
 </div>

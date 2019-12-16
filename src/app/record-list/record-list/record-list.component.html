@@ -1,5 +1,5 @@
-<div class="record-list">
-  <div class="record-list__nav-bar record-list__nav-bar--top">
+<app-page [modifierBottom]="['actions']">
+  <ng-container data-slot="top">
     <div class="record-list__selector" *ngIf="timeRange$ | async as timeRange">
       <a app-button [routerLink]="'/list' + timeRange.prev.path">
         <app-svg name="prev" size="medium"></app-svg>
@@ -27,37 +27,35 @@
         class="record-list__summary-progress"
       ></div>
     </div>
-  </div>
+  </ng-container>
 
   <ng-container *ngIf="records$ | async as records; else loading">
     <div [@list]="records">
-      <div *ngFor="let record of records">
+      <ng-container *ngFor="let record of records">
         <app-record-list-item [item]="record"></app-record-list-item>
-      </div>
+      </ng-container>
 
-      <div class="record-list__no-data" *ngIf="records.length === 0">
+      <div class="record-list__placeholder" *ngIf="records.length === 0">
         No data present
       </div>
     </div>
   </ng-container>
 
   <ng-template #loading>
-    <div class="record-list__center">Loading ...</div>
+    <div class="record-list__placeholder">Loading ...</div>
   </ng-template>
 
-  <div class="record-list__nav-bar record-list__nav-bar--bottom">
-    <div class="record-list__actions">
-      <a app-button [href]="mailUrl$ | async">
-        <app-svg name="send" size="medium"></app-svg>
-      </a>
+  <ng-container data-slot="bottom">
+    <a app-button [href]="mailUrl$ | async">
+      <app-svg name="send" size="medium"></app-svg>
+    </a>
 
-      <a app-button size="large" [routerLink]="['/record/add']">
-        <app-svg name="plus" size="medium"></app-svg>
-      </a>
+    <a app-button size="large" [routerLink]="['/record/add']">
+      <app-svg name="plus" size="medium"></app-svg>
+    </a>
 
-      <a app-button [routerLink]="['/settings']">
-        <app-svg name="settings" size="medium"></app-svg>
-      </a>
-    </div>
-  </div>
-</div>
+    <a app-button [routerLink]="['/settings']">
+      <app-svg name="settings" size="medium"></app-svg>
+    </a>
+  </ng-container>
+</app-page>
