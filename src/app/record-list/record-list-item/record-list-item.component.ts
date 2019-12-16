@@ -1,12 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-record-list-item',
   templateUrl: './record-list-item.component.html',
   styleUrls: ['./record-list-item.component.scss']
 })
-export class RecordListItemComponent {
+export class RecordListItemComponent implements OnInit {
   @Input() item: TimeRecord;
 
-  constructor() {}
+  isTranslatableType: boolean;
+  typeTranslationKey: string;
+  typeModifier: string;
+
+  ngOnInit(): void {
+    const { type } = this.item;
+
+    this.isTranslatableType = type > 0;
+    this.typeModifier = `item__type--${type}`;
+    this.typeTranslationKey = `TYPES.type${type}`;
+  }
 }

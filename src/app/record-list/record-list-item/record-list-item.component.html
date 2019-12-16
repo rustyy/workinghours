@@ -6,14 +6,14 @@
     <div class="item__date">{{ item.start | date: 'dd.MM.' }}</div>
   </div>
 
-  <div *ngIf="item.type !== 0" class="item__type item__type--{{ item.type }}">
-    {{ 'TYPES.type' + item.type | translate }}
+  <div *ngIf="isTranslatableType" [ngClass]="typeModifier" class="item__type">
+    {{ typeTranslationKey | translate }}
   </div>
 
-  <div *ngIf="item.type === 0" class="item__content">
+  <div *ngIf="!isTranslatableType" class="item__content">
     <div class="item__from-to-overall-wrapper">
       <div class="item__from-to">{{ item.start | date: 'HH:mm' }} - {{ item.end | date: 'HH:mm' }}</div>
-      <div *ngIf="item.type === 0" class="item__overall">{{ item.overall | minutesToHours }}</div>
+      <div class="item__overall">{{ item.overall | minutesToHours }}</div>
     </div>
     <div class="item__project">{{ item.project }}</div>
   </div>
