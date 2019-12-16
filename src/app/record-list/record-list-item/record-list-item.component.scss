@@ -1,8 +1,20 @@
 @import "src/scss/variables";
 
+:host {
+  display: block;
+  border-bottom: 1px solid rgba($c-light, 0.2);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  @media print {
+    border-bottom: 1px solid $c-primary;
+  }
+}
+
 .item {
   align-items: center;
-  border-bottom: 1px solid rgba($c-light, 0.2);
   color: $c-light;
   display: flex;
   justify-content: space-between;
@@ -11,7 +23,6 @@
 
   @media print {
     align-items: flex-start;
-    border-bottom: 1px solid $c-primary;
     color: $c-primary;
   }
 }

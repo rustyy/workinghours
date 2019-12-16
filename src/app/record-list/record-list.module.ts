@@ -9,10 +9,11 @@ import { ButtonModule } from '../shared/button/button.module';
 import { RouterModule } from '@angular/router';
 import { PipesModule } from '../shared/pipes/pipes.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { PageModule } from '../shared/page/page.module';
 
 @NgModule({
   declarations: [RecordListComponent, RecordListItemComponent, WeekIndicatorComponent],
-  imports: [CommonModule, SvgModule, ButtonModule, RouterModule, PipesModule, TranslateModule],
+  imports: [CommonModule, SvgModule, ButtonModule, RouterModule, PipesModule, TranslateModule, PageModule],
   exports: [RecordListComponent, RecordListRoutingModule]
 })
 export class RecordListModule {}

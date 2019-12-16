@@ -18,7 +18,7 @@
   class="record-detail"
   [ngClass]="{ 'record-detail--hidden': !initialized }"
 >
-  <app-page [reverseBottom]="true" [reverseTop]="true">
+  <app-page [modifierBottom]="['actions-reverse']" [modifierTop]="['actions-reverse']">
     <ng-container data-slot="top">
       <app-button-close></app-button-close>
     </ng-container>
