@@ -17,33 +17,47 @@ export class SendService {
     private translateService: TranslateService
   ) {}
 
-  mailUrl(records$: Observable<TimeRecord[]>): Observable<string> {
-    const types$ = this.translateService.get(`TYPES`);
-    return combineLatest([records$, types$]).pipe(map(this.mapper.bind(this)));
+  static formatDay(time: string, dayMapping: object): string {
+    const s = moment(time);
+    const dayShort = s.format('dd');
+    const date = s.format('DD.MM.YYYY');
+    return `${dayMapping[dayShort]} ${date}`;
   }
 
-  private mapper([records, typeTranslations]) {
+  mailUrl(records$: Observable<TimeRecord[]>): Observable<string> {
+    const translations$ = this.translateService.get([
+      'TYPES',
+      'DETAIL.PROJECT',
+      'Mo',
+      'Tu',
+      'We',
+      'Th',
+      'Fr',
+      'Sa',
+      'Su'
+    ]);
+    return combineLatest([records$, translations$]).pipe(map(this.mapper.bind(this)));
+  }
+
+  private mapper([records, translations]) {
     const mail = this.settingsService.get('email');
     const name = this.settingsService.get('name');
-    const mailBody = records.map(this.buildMailBody(typeTranslations));
+    const mailBody = records.map(this.buildMailBody(translations));
 
     return `mailto:${mail}?subject=workinghours&body=${escape(name)}${escape(mailBody.join(''))}`;
   }
 
-  private buildMailBody(typeTranslations) {
-    return record => {
-      const day = moment(record.start).format('dd DD.MM.YYYY');
-      const start = moment(record.start).format('HH:mm');
-      const end = moment(record.end).format('HH:mm');
-      const project = record.project || '--';
-      const { type } = record;
-
-      const startEnd = type > 0 ? typeTranslations[`type${type}`] : `${start} - ${end}`;
-      const overall = type > 0 ? '' : `${this.helperService.minutesToHhMm(record.overall)}h`;
+  private buildMailBody(translations) {
+    return ({ type, start, end, overall, project }) => {
+      const d = SendService.formatDay(start, translations);
+      const s = moment(start).format('HH:mm');
+      const e = moment(end).format('HH:mm');
+      const startEnd = type > 0 ? translations[`type${type}`] : `${s} - ${e}`;
+      const o = type > 0 ? '' : `${this.helperService.minutesToHhMm(overall)}h`;
 
       const lines = [
-        [day, startEnd, overall].filter(id => id).join('          '),
-        `Project: ${project}`,
+        [d, startEnd, o].filter(id => id).join('          '),
+        `${translations['DETAIL.PROJECT']}: ${project || '--'}`,
         '________________________________________'
       ].join('\n');
 
