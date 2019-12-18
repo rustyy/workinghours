@@ -18,32 +18,42 @@ export class SendService {
   ) {}
 
   mailUrl(records$: Observable<TimeRecord[]>): Observable<string> {
-    const types$ = this.translateService.get(`TYPES`);
-    return combineLatest([records$, types$]).pipe(map(this.mapper.bind(this)));
+    const translations$ = this.translateService.get([
+      'TYPES',
+      'DETAIL.PROJECT',
+      'Mo',
+      'Tu',
+      'We',
+      'Th',
+      'Fr',
+      'Sa',
+      'Su'
+    ]);
+    return combineLatest([records$, translations$]).pipe(map(this.mapper.bind(this)));
   }
 
-  private mapper([records, typeTranslations]) {
+  private mapper([records, translations]) {
     const mail = this.settingsService.get('email');
     const name = this.settingsService.get('name');
-    const mailBody = records.map(this.buildMailBody(typeTranslations));
+    const mailBody = records.map(this.buildMailBody(translations));
 
     return `mailto:${mail}?subject=workinghours&body=${escape(name)}${escape(mailBody.join(''))}`;
   }
 
-  private buildMailBody(typeTranslations) {
+  private buildMailBody(translations) {
     return record => {
-      const day = moment(record.start).format('dd DD.MM.YYYY');
+      const day = translations[moment(record.start).format('dd')] + ' ' + moment(record.start).format('DD.MM.YYYY');
       const start = moment(record.start).format('HH:mm');
       const end = moment(record.end).format('HH:mm');
       const project = record.project || '--';
       const { type } = record;
 
-      const startEnd = type > 0 ? typeTranslations[`type${type}`] : `${start} - ${end}`;
+      const startEnd = type > 0 ? translations[`type${type}`] : `${start} - ${end}`;
       const overall = type > 0 ? '' : `${this.helperService.minutesToHhMm(record.overall)}h`;
 
       const lines = [
         [day, startEnd, overall].filter(id => id).join('          '),
-        `Project: ${project}`,
+        `${translations['DETAIL.PROJECT']}: ${project}`,
         '________________________________________'
       ].join('\n');
 
