@@ -17,6 +17,13 @@ export class SendService {
     private translateService: TranslateService
   ) {}
 
+  static formatDay(time: string, dayMapping: object): string {
+    const s = moment(time);
+    const dayShort = s.format('dd');
+    const date = s.format('DD.MM.YYYY');
+    return `${dayMapping[dayShort]} ${date}`;
+  }
+
   mailUrl(records$: Observable<TimeRecord[]>): Observable<string> {
     const translations$ = this.translateService.get([
       'TYPES',
@@ -41,19 +48,16 @@ export class SendService {
   }
 
   private buildMailBody(translations) {
-    return record => {
-      const day = translations[moment(record.start).format('dd')] + ' ' + moment(record.start).format('DD.MM.YYYY');
-      const start = moment(record.start).format('HH:mm');
-      const end = moment(record.end).format('HH:mm');
-      const project = record.project || '--';
-      const { type } = record;
-
-      const startEnd = type > 0 ? translations[`type${type}`] : `${start} - ${end}`;
-      const overall = type > 0 ? '' : `${this.helperService.minutesToHhMm(record.overall)}h`;
+    return ({ type, start, end, overall, project }) => {
+      const d = SendService.formatDay(start, translations);
+      const s = moment(start).format('HH:mm');
+      const e = moment(end).format('HH:mm');
+      const startEnd = type > 0 ? translations[`type${type}`] : `${s} - ${e}`;
+      const o = type > 0 ? '' : `${this.helperService.minutesToHhMm(overall)}h`;
 
       const lines = [
-        [day, startEnd, overall].filter(id => id).join('          '),
-        `${translations['DETAIL.PROJECT']}: ${project}`,
+        [d, startEnd, o].filter(id => id).join('          '),
+        `${translations['DETAIL.PROJECT']}: ${project || '--'}`,
         '________________________________________'
       ].join('\n');
 
