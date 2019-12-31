@@ -31,8 +31,10 @@ export class RecordListService {
 
   public mapYearWeek({ year, week }: { year: string | number; week: string | number }): { year: number; week: number } {
     const now = moment();
-    const yearDefault = now.format('YYYY');
+    // @todo: needs work - quickfix only.
+    let yearDefault = +now.format('YYYY');
     const weekDefault = now.isoWeek();
+    yearDefault = weekDefault === 1 ? yearDefault + 1 : yearDefault;
 
     return {
       year: +(year || yearDefault),
