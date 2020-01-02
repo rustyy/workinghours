@@ -29,16 +29,19 @@ export class RecordListService {
     );
   }
 
+  /**
+   * @todo: year/week to be required.
+   */
   public mapYearWeek({ year, week }: { year: string | number; week: string | number }): { year: number; week: number } {
     const now = moment();
-    // @todo: needs work - quickfix only.
-    let yearDefault = +now.format('YYYY');
-    const weekDefault = now.isoWeek();
-    yearDefault = weekDefault === 1 ? yearDefault + 1 : yearDefault;
+    const w = now.isoWeek();
+    const month = now.month();
+    let y = +now.format('YYYY');
+    y = month === 11 && w === 1 ? y + 1 : y;
 
     return {
-      year: +(year || yearDefault),
-      week: +(week || weekDefault)
+      year: +(year || y),
+      week: +(week || w)
     };
   }
 
