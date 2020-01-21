@@ -5,6 +5,8 @@ import { of } from 'rxjs';
 import { DatabaseService } from '../shared/database/database.service';
 import { ValidatorService } from './validator.service';
 
+import * as moment from 'moment';
+
 describe('ValidatorService', () => {
   let validatorService: ValidatorService;
   let dbServiceSpy: jasmine.SpyObj<DatabaseService>;
@@ -73,8 +75,13 @@ describe('ValidatorService', () => {
 
       validatorFn(group).subscribe(() => {
         expect(getRecordsInTimeRangeCalls.count()).toBe(1);
-        expect(getRecordsInTimeRangeCalls.first().args[0]).toBe(1579215600000);
-        expect(getRecordsInTimeRangeCalls.first().args[1]).toBe(1579301999999);
+
+        const arg1 = moment('2020-01-17', 'YYYY-MM-DD').valueOf();
+        expect(getRecordsInTimeRangeCalls.first().args[0]).toBe(arg1);
+
+        const arg2 = moment('2020-01-17 23:59:59.999', 'YYYY-MM-DD HH:mm:ss.SSS').valueOf();
+        expect(getRecordsInTimeRangeCalls.first().args[1]).toBe(arg2);
+
         done();
       });
     });
@@ -107,8 +114,8 @@ describe('ValidatorService', () => {
         // Conflicting
         {
           id: 1,
-          start: 1579251600000,
-          end: 1579258800000,
+          start: moment('2020-01-17 09:00', 'YYYY-MM-DD HH:mm').valueOf(),
+          end: moment('2020-01-17 13:00', 'YYYY-MM-DD HH:mm').valueOf(),
           type: 0,
           overall: 1
         },
@@ -123,8 +130,8 @@ describe('ValidatorService', () => {
         // Conflicting
         {
           id: 3,
-          start: 1579251600000,
-          end: 1579258800000,
+          start: moment('2020-01-17 07:00', 'YYYY-MM-DD HH:mm').valueOf(),
+          end: moment('2020-01-17 13:00', 'YYYY-MM-DD HH:mm').valueOf(),
           type: 0,
           overall: 1
         }
