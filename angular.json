@@ -26,7 +26,8 @@
               "src/.htaccess",
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.json"
+              "src/manifest.json",
+              "src/robots.txt"
             ],
             "styles": [
               "src/styles.scss"
