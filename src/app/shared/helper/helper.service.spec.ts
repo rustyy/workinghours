@@ -1,3 +1,4 @@
+import * as moment from 'moment-timezone';
 import { HelperService } from './helper.service';
 
 describe('HelperService', () => {
@@ -5,6 +6,11 @@ describe('HelperService', () => {
 
   beforeEach(() => {
     service = new HelperService();
+    moment.tz.setDefault('Europe/Berlin');
+  });
+
+  afterEach(() => {
+    moment.tz.setDefault();
   });
 
   describe('#getMinMaxTime', () => {
@@ -20,8 +26,8 @@ describe('HelperService', () => {
         maxTime: 947458799999
       };
       const actual = service.getMinMaxTime(2000, 1);
-      expect(expected.minTime).toBe(actual.minTime, 'minTime incorrect');
-      expect(expected.maxTime).toBe(actual.maxTime, 'maxTime incorrect');
+      expect(actual.minTime).toBe(expected.minTime, 'minTime incorrect');
+      expect(actual.maxTime).toBe(expected.maxTime, 'maxTime incorrect');
     });
   });
 
@@ -109,7 +115,8 @@ describe('HelperService', () => {
 
   describe('#toHHmm', () => {
     it('should format date date to HH:mm', () => {
-      expect(service.toHHmm(1579051800000)).toBe('02:30');
+      const timestamp = moment('2020-01-01 02:30', 'YYYY-MM-DD HH:mm').valueOf();
+      expect(service.toHHmm(timestamp)).toBe('02:30');
     });
   });
 });
