@@ -5,6 +5,21 @@ import * as moment from 'moment';
 export class HelperService {
   constructor() {}
 
+  static parseYearWeek(y, w, direction) {
+    const m = {
+      prev: 'subtract',
+      next: 'add'
+    };
+
+    const mom = moment(`${y} ${w} 1`, 'YYYY W E')[m[direction]](1, 'w');
+    const week = +mom.format('W');
+    const weeksInYear = mom.isoWeeksInYear();
+
+    return { week, weeksInYear };
+  }
+
+  // @todo typing return value
+  // @todo: can be static
   getMinMaxTime(year, week) {
     const format = 'YYYY W E HH:mm:ss.SSS';
     const start = `${year} ${week} 1 00:00:00.000`;
@@ -21,13 +36,13 @@ export class HelperService {
     return +hours * 60 + +minutes;
   }
 
-  minutesToHhMm(val: number): string {
+  minutesToHhMm(val: number, delimiter: string = ':'): string {
     const hours = Math.floor(val / 60);
     const hoursString = hours === 0 ? '00' : hours < 10 ? `0${hours}` : hours;
     const minutes = val % 60;
     const minutesString = minutes === 0 ? '00' : minutes < 10 ? `0${minutes}` : minutes;
 
-    return `${hoursString}:${minutesString}`;
+    return `${hoursString}${delimiter}${minutesString}`;
   }
 
   toHHmm(data): string {
@@ -35,7 +50,7 @@ export class HelperService {
   }
 
   getNextWeek(curYear: number, curWeek: number): { year: number; week: number; path: string } {
-    const { week, weeksInYear } = this._parseYearWeek(curYear, curWeek, 'next');
+    const { week, weeksInYear } = HelperService.parseYearWeek(curYear, curWeek, 'next');
     const year = curWeek === weeksInYear ? curYear + 1 : curYear;
     const path = `/${year}/${week}`;
 
@@ -43,23 +58,10 @@ export class HelperService {
   }
 
   getPrevWeek(curYear: number, curWeek: number): { year: number; week: number; path: string } {
-    const { week } = this._parseYearWeek(curYear, curWeek, 'prev');
+    const { week } = HelperService.parseYearWeek(curYear, curWeek, 'prev');
     const year = curWeek === 1 ? curYear - 1 : curYear;
     const path = `/${year}/${week}`;
 
     return { year, week, path };
-  }
-
-  _parseYearWeek(y, w, direction) {
-    const m = {
-      prev: 'subtract',
-      next: 'add'
-    };
-
-    const mom = moment(`${y} ${w} 1`, 'YYYY W E')[m[direction]](1, 'w');
-    const week = +mom.format('W');
-    const weeksInYear = mom.isoWeeksInYear();
-
-    return { week, weeksInYear };
   }
 }

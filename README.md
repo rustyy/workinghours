@@ -1,3 +1,5 @@
+[![workinghours](https://circleci.com/gh/rustyy/workinghours/tree/master.svg?style=shield)](https://circleci.com/gh/rustyy/workinghours/tree/master)
+
 # Working Hours
 
 A tiny PWA to track your daily work - completely offline. All data is stored in indexedDB and localStorage

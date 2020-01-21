@@ -14,7 +14,7 @@ export class SvgComponent implements OnInit {
   }
 
   @Input() set name(val: string) {
-    this.idName = `symbol-icon-${val}`;
+    this.idName = `#symbol-icon-${val}`;
   }
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) {}
