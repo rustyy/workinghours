@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import * as moment from 'moment';
+
 import { WeekIndicatorComponent } from './week-indicator.component';
 
 describe('WeekIndicatorComponent', () => {
@@ -18,13 +20,19 @@ describe('WeekIndicatorComponent', () => {
       declarations: [WeekIndicatorComponent, MockedTranslatePipe]
     });
 
+    const format = 'DD.MM.YYYY';
+
     fixture = TestBed.createComponent(WeekIndicatorComponent);
     component = fixture.componentInstance;
 
     component.year = 2020;
     component.week = 50;
-    component.from = '1577833200000'; // 1.1.2020
-    component.to = '1578178799000'; // 4.1.2020
+    component.from = moment('01.01.2020', format)
+      .valueOf()
+      .toString();
+    component.to = moment('04.01.2020', format)
+      .valueOf()
+      .toString();
 
     fixture.detectChanges();
   });
