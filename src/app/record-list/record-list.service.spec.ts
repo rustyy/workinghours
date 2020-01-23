@@ -8,7 +8,7 @@ import * as moment from 'moment';
 
 import { RecordListService } from './record-list.service';
 
-fdescribe('RecordListService', () => {
+describe('RecordListService', () => {
   let service: RecordListService;
   let helperServiceSpy: jasmine.SpyObj<HelperService>;
   let databaseServiceSpy: jasmine.SpyObj<DatabaseService>;
@@ -40,19 +40,19 @@ fdescribe('RecordListService', () => {
 
   describe('#mapYearWeek', () => {
     it('should calculate week and year at the turn of the year', () => {
-      let now = moment('2020-01-1').toDate();
+      let now = moment('2020-01-01', 'YYYY-MM-DD').toDate();
       jasmine.clock().mockDate(now);
       let actual = service.mapYearWeek({});
       expect(actual).toEqual({ year: 2020, week: 1 });
       jasmine.clock().uninstall();
 
-      now = moment('2019-12-31').toDate();
+      now = moment('2019-12-31', 'YYYY-MM-DD').toDate();
       jasmine.clock().mockDate(now);
       actual = service.mapYearWeek({});
       expect(actual).toEqual({ year: 2020, week: 1 });
       jasmine.clock().uninstall();
 
-      now = moment('2020-12-31').toDate();
+      now = moment('2020-12-31', 'YYYY-MM-DD').toDate();
       jasmine.clock().mockDate(now);
       actual = service.mapYearWeek({});
       expect(actual).toEqual({ year: 2020, week: 53 });
