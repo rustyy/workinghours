@@ -32,7 +32,13 @@ export class RecordListService {
   /**
    * @todo: year/week to be required.
    */
-  public mapYearWeek({ year, week }: { year: string | number; week: string | number }): { year: number; week: number } {
+  public mapYearWeek({
+    year,
+    week
+  }: {
+    year?: string | number;
+    week?: string | number;
+  }): { year: number; week: number } {
     const now = moment();
     const w = now.isoWeek();
     const month = now.month();
