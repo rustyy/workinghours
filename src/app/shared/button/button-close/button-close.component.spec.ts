@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Location } from '@angular/common';
+import { MockLocationStrategy } from '@angular/common/testing';
 
 import { ButtonCloseComponent } from './button-close.component';
+import { SvgComponent } from '../../svg/svg/svg.component';
 
 describe('ButtonCloseComponent', () => {
   let component: ButtonCloseComponent;
@@ -8,7 +11,8 @@ describe('ButtonCloseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ButtonCloseComponent]
+      declarations: [ButtonCloseComponent, SvgComponent],
+      providers: [{ provide: Location, useClass: MockLocationStrategy }]
     }).compileComponents();
   }));
 
@@ -18,7 +22,7 @@ describe('ButtonCloseComponent', () => {
     fixture.detectChanges();
   });
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
