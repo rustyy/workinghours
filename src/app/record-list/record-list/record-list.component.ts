@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { transition, trigger, useAnimation } from '@angular/animations';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
 import { SendService } from '../../send/send.service';
 import { RecordListService } from '../record-list.service';
-import { transition, trigger, useAnimation } from '@angular/animations';
 import { listToList } from '../../shared/animations/listToList';
+import { TimeRecord } from '../../../types/TimeRecord';
 
 @Component({
   selector: 'app-record-list',

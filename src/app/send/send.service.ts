@@ -4,6 +4,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
+import { TimeRecord } from '../../types/TimeRecord';
 import { SettingsService } from '../settings/settings.service';
 import { HelperService } from '../shared/helper/helper.service';
 

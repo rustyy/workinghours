@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
+
 import { TimesheetDatabase } from './TimesheetDatabase';
+import { TimeRecord } from '../../../types/TimeRecord';
 
 @Injectable({
   providedIn: 'root'

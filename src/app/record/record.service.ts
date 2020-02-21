@@ -7,6 +7,9 @@ import { FormGroup } from '@angular/forms';
 import { DatabaseService } from '../shared/database/database.service';
 import { TranslateService } from '@ngx-translate/core';
 
+import { TimeRecord } from '../../types/TimeRecord';
+import { TimeRecordType } from '../../types/TimeRecordType';
+
 @Injectable({
   providedIn: 'root'
 })
