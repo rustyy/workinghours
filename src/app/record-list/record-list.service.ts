@@ -6,6 +6,8 @@ import { map, switchMap } from 'rxjs/operators';
 
 import * as moment from 'moment';
 
+import { TimeRecord } from '../../types/TimeRecord';
+import { TimeRecordType } from '../../types/TimeRecordType';
 import { DatabaseService } from '../shared/database/database.service';
 import { HelperService } from '../shared/helper/helper.service';
 import { SettingsService } from '../settings/settings.service';

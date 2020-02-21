@@ -1,4 +1,4 @@
-declare interface TimeRecord {
+export interface TimeRecord {
   id?: number;
   type: number;
   typeName?: string;

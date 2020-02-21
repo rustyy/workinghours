@@ -1,4 +1,6 @@
 import Dexie from 'dexie';
+import { TimeRecordType } from '../../../types/TimeRecordType';
+import { TimeRecord } from '../../../types/TimeRecord';
 
 const DB_NAME = 'TimesheetDatabase';
 

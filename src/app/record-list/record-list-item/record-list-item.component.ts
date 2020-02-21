@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TimeRecord } from '../../../types/TimeRecord';
 
 @Component({
   selector: 'app-record-list-item',
