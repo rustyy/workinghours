@@ -32,7 +32,7 @@
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "^4.0.0",
     "core-js": "^3.6.5",
-    "dexie": "^2.0.4",
+    "dexie": "^3.0.1",
     "moment": "^2.25.3",
     "rxjs": "~6.5.5",
     "tslib": "^1.11.2",
