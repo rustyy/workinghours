@@ -5,7 +5,7 @@ import { TimesheetDatabase } from './TimesheetDatabase';
 import { TimeRecord } from '../../../types/TimeRecord';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DatabaseService {
   private readonly db: TimesheetDatabase;
@@ -31,7 +31,7 @@ export class DatabaseService {
       this.db.records
         .where('start')
         .aboveOrEqual(start)
-        .and(row => row.end <= end)
+        .and((row) => row.end <= end)
         .toArray()
     );
   }

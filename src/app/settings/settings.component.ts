@@ -8,7 +8,7 @@ import { SettingsService } from './settings.service';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
   environment = environment;
@@ -24,7 +24,7 @@ export class SettingsComponent implements OnInit {
     this.settingsForm = this.fb.group({
       name: [nameValue],
       email: [emailValue, Validators.email],
-      weeklyHours: [hoursValue]
+      weeklyHours: [hoursValue],
     });
   }
 
