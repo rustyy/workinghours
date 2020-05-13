@@ -11,30 +11,31 @@ import { pageToPage } from './shared/animations/pageToPage';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [trigger('routeAnimations', [transition('* <=> closable', [useAnimation(pageToPage)])])]
+  animations: [trigger('routeAnimations', [transition('* <=> closable', [useAnimation(pageToPage)])])],
 })
 export class AppComponent implements OnInit {
   title = 'workinghours';
   updatesAvailable = false;
-  updates;
 
-  constructor(appRef: ApplicationRef, updates: SwUpdate, private translate: TranslateService) {
+  constructor(private appRef: ApplicationRef, private updates: SwUpdate, private translate: TranslateService) {
     this.initI18n();
-    this.updates = updates;
-
-    if (this.updates.isEnabled) {
-      const appIsStable$ = appRef.isStable.pipe(first(isStable => isStable === true));
-      const checkUpdateInterval$ = interval(2 * 60 * 1000);
-      const checkUpdates = concat(appIsStable$, checkUpdateInterval$);
-      checkUpdates.subscribe(() => updates.checkForUpdate());
-    }
+    this.checkForUpdate();
   }
 
   ngOnInit() {
     if (this.updates.isEnabled) {
-      this.updates.available.subscribe(event => {
+      this.updates.available.subscribe((event) => {
         this.updatesAvailable = true;
       });
+    }
+  }
+
+  checkForUpdate() {
+    if (this.updates.isEnabled) {
+      const appIsStable$ = this.appRef.isStable.pipe(first((isStable) => isStable === true));
+      const checkUpdateInterval$ = interval(2 * 60 * 1000);
+      const checkUpdates = concat(appIsStable$, checkUpdateInterval$);
+      checkUpdates.subscribe(() => this.updates.checkForUpdate());
     }
   }
 
