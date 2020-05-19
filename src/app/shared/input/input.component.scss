@@ -11,10 +11,10 @@ select {
   color: $c-primary;
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
+  height: $input-height;
   margin: 0;
   padding: 10px;
   width: 100%;
-  height: $input-height;
 
   &:focus {
     outline: none;
@@ -36,9 +36,9 @@ select {
 .input__wrapper {
   background: $c-light;
   border-radius: $border-radius--default;
+  border: 2px solid transparent;
   box-shadow: $interactive--box-shadow;
   display: flex;
-  border: 2px solid transparent;
   height: $input-height;
 
   &--valid {
