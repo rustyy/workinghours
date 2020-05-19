@@ -1,11 +1,10 @@
 @import "src/scss/variables";
 
 $button--medium: 40px;
-$button--large: 60px;
+$button--large: $button--medium * 1.618;
 
 :host.button {
-  height: 80px;
-  width: 80px;
+  margin: $spacing--default;
 }
 
 :host.button,
