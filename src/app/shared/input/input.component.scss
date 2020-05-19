@@ -1,22 +1,45 @@
 @import "src/scss/variables";
 
+$input-height: 3rem;
+
 button,
 input,
 select {
   -webkit-appearance: none;
-  background: transparent;
+  background: $c-light;
+  border-radius: $border-radius--default;
   border: 0;
-  color: #000;
-  display: block;
+  box-shadow: $interactive--box-shadow;
+  color: $c-primary;
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
-  line-height: 4rem - (20/14);
+  height: $input-height;
   margin: 0;
-  padding: 0;
+  padding: 10px;
+  transform: scale(1);
+  transition: all 160ms;
   width: 100%;
 
   &:focus {
+    box-shadow: $interactive--box-shadow--focus;
     outline: none;
+    transform: scale(1.1);
+  }
+}
+
+input[readonly] {
+  background: rgba($c-light, .2);
+  box-shadow: none;
+  color: $c-light;
+}
+
+input,
+select {
+  border: 2px solid transparent;
+  border-radius: $border-radius--default;
+
+  &.ng-invalid {
+    border-color: $c-danger;
   }
 }
 
@@ -33,31 +56,11 @@ select {
 }
 
 .input__wrapper {
-  background: $c-light;
-  border-radius: $border-radius--default;
-  box-shadow: $interactive--box-shadow;
   display: flex;
-  padding: $border-radius--default;
-  border: 2px solid transparent;
-
-  &--valid {
-    // @Todo.
-  }
-
-  &--invalid {
-    border-color: $c-danger;
-  }
+  height: $input-height;
 }
 
-
 .input--readonly {
-
-  .input__wrapper {
-    background: rgba($c-light, .2);
-    box-shadow: none;
-  }
-
-  input {
-    color: $c-light
-  }
+  user-select: none;
+  pointer-events: none;
 }
