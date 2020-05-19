@@ -16,6 +16,8 @@ body {
   font-size: $font-size--default;
   line-height: $line-height;
   min-height: 100%;
+  padding-right: env(safe-area-inset-right);
+  padding-left: env(safe-area-inset-left);
 
   * {
     box-sizing: border-box;
