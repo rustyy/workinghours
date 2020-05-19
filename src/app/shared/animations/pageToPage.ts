@@ -11,8 +11,8 @@ export const pageToPage = animation([
         top: 0,
         left: 0,
         width: '100%',
-        height: '100vh'
-      })
+        height: '100vh',
+      }),
     ],
     { optional: true }
   ),
@@ -21,6 +21,6 @@ export const pageToPage = animation([
 
   group([
     query(':enter', [animate(BEZIER, style({ transform: 'translateX(0)', opacity: 1 }))]),
-    query(':leave', [animate(BEZIER, style({ transform: 'translateX(-100vw)', opacity: 0 }))], { optional: true })
-  ])
+    query(':leave', [animate(BEZIER, style({ transform: 'translateX(-100vw)', opacity: 0 }))], { optional: true }),
+  ]),
 ]);

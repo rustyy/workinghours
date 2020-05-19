@@ -14,6 +14,6 @@ import { PageModule } from '../shared/page/page.module';
 @NgModule({
   declarations: [RecordListComponent, RecordListItemComponent, WeekIndicatorComponent],
   imports: [CommonModule, SvgModule, ButtonModule, RouterModule, PipesModule, TranslateModule, PageModule],
-  exports: [RecordListComponent, RecordListRoutingModule]
+  exports: [RecordListComponent, RecordListRoutingModule],
 })
 export class RecordListModule {}

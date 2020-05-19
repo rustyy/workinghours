@@ -18,7 +18,7 @@
   color: $c-light;
   display: flex;
   justify-content: space-between;
-  padding: $spacing--default;
+  padding: $spacing--default 0;
   text-decoration: none;
 
   @media print {
