@@ -1,19 +1,20 @@
 @import "src/scss/variables";
 
+$input-height: 3rem;
+
 button,
 input,
 select {
   -webkit-appearance: none;
   background: transparent;
   border: 0;
-  color: #000;
-  display: block;
+  color: $c-primary;
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
-  line-height: 4rem - (20/14);
   margin: 0;
-  padding: 0;
+  padding: 10px;
   width: 100%;
+  height: $input-height;
 
   &:focus {
     outline: none;
@@ -37,8 +38,8 @@ select {
   border-radius: $border-radius--default;
   box-shadow: $interactive--box-shadow;
   display: flex;
-  padding: $border-radius--default;
   border: 2px solid transparent;
+  height: $input-height;
 
   &--valid {
     // @Todo.
@@ -48,7 +49,6 @@ select {
     border-color: $c-danger;
   }
 }
-
 
 .input--readonly {
 
