@@ -32,8 +32,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
     HelperModule,
     SvgModule,
@@ -42,9 +42,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     RecordListModule,
     UpdateLayerModule,
     // Keep last for catch all.
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
