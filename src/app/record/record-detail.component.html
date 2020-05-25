@@ -30,7 +30,7 @@
 
       <div *ngIf="recordForm.errors && recordForm.errors.conflictingRecord" class="error">
         <div *ngFor="let record of recordForm.errors.conflictingRecord">
-          {{ 'ERRORS.CONFLICTINGRECORD' | translate }}
+          {{ 'ERRORS.CONFLICTING_RECORD' | translate }}
           {{ record.start | date: 'dd.MM.yyyy' }}, {{ record.start | date: 'HH:mm' }} - {{ record.end | date: 'HH:mm' }}
         </div>
       </div>
@@ -55,7 +55,7 @@
         </div>
 
         <div *ngIf="recordForm.errors && recordForm.errors.startEndMismatch" class="error">
-          {{ 'ERRORS.STARTENDMISMATCH' | translate }}
+          {{ 'ERRORS.START_END_MISMATCH' | translate }}
         </div>
 
         <div appFlexContainer>

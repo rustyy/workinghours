@@ -22,9 +22,9 @@
     "PROJECT": "Project / Notes"
   },
   "ERRORS": {
-    "OVERALLMISMATCH": "OVERALLMISMATCH",
-    "STARTENDMISMATCH": "End of work can not be equal or before starting work.",
-    "CONFLICTINGRECORD": "Your data conflicts with another entry:"
+    "OVERALL_MISMATCH": "OVERALL_MISMATCH",
+    "START_END_MISMATCH": "End of work can not be equal or before starting work.",
+    "CONFLICTING_RECORD": "Your data conflicts with another entry:"
   },
   "TYPES": {
     "type0": "default",

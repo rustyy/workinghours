@@ -22,9 +22,9 @@
     "PROJECT": "Projekt / Anmerkungen"
   },
   "ERRORS": {
-    "OVERALLMISMATCH": "OVERALLMISMATCH",
-    "STARTENDMISMATCH": "Arbeitsbeginn muss vor Arbeitsende liegen.",
-    "CONFLICTINGRECORD": "Im angegebenen Zeitraum existiert bereits ein Eintrag:"
+    "OVERALL_MISMATCH": "OVERALL_MISMATCH",
+    "START_END_MISMATCH": "Arbeitsbeginn muss vor Arbeitsende liegen.",
+    "CONFLICTING_RECORD": "Im angegebenen Zeitraum existiert bereits ein Eintrag:"
   },
   "TYPES": {
     "type0": "Normal",
