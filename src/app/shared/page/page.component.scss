@@ -10,6 +10,7 @@
 .page__top,
 .page__bottom {
   position: sticky;
+  z-index: 1;
 
   @supports (backdrop-filter: blur()) {
     backdrop-filter: blur(20px);
