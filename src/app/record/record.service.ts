@@ -11,7 +11,7 @@ import { TimeRecord } from '../../types/TimeRecord';
 import { TimeRecordType } from '../../types/TimeRecordType';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecordService {
   constructor(
@@ -21,7 +21,7 @@ export class RecordService {
   ) {}
 
   public getRecord(id: number): Observable<any> {
-    return id ? this.databaseService.getRecord(id).pipe(map(x => this.recordToFormData(x))) : this.defaultRecord();
+    return id ? this.databaseService.getRecord(id).pipe(map((x) => this.recordToFormData(x))) : this.defaultRecord();
   }
 
   public addRecord(formData): Observable<number> {
@@ -75,14 +75,8 @@ export class RecordService {
 
   private emptyRecord() {
     const record: TimeRecord = {} as TimeRecord;
-    const start = moment()
-      .hours(8)
-      .minutes(0)
-      .seconds(0);
-    const end = moment(start)
-      .hours(17)
-      .minutes(0)
-      .seconds(0);
+    const start = moment().hours(8).minutes(0).seconds(0);
+    const end = moment(start).hours(17).minutes(0).seconds(0);
 
     const duration = moment.duration(end.diff(start));
     const overall = duration.asMinutes() - 60;
