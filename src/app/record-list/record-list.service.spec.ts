@@ -28,10 +28,10 @@ describe('RecordListService', () => {
       ]
     });
 
-    service = TestBed.get(RecordListService);
-    helperServiceSpy = TestBed.get(HelperService);
-    databaseServiceSpy = TestBed.get(DatabaseService);
-    settingsServiceSpy = TestBed.get(SettingsService);
+    service = TestBed.inject(RecordListService);
+    helperServiceSpy = TestBed.inject(HelperService) as jasmine.SpyObj<HelperService>;
+    databaseServiceSpy = TestBed.inject(DatabaseService) as jasmine.SpyObj<DatabaseService>;
+    settingsServiceSpy = TestBed.inject(SettingsService) as jasmine.SpyObj<SettingsService>;
   });
 
   it('should be created', () => {
