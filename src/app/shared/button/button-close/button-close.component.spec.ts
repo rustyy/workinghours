@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Location } from '@angular/common';
 import { MockLocationStrategy } from '@angular/common/testing';
 
@@ -9,7 +9,7 @@ describe('ButtonCloseComponent', () => {
   let component: ButtonCloseComponent;
   let fixture: ComponentFixture<ButtonCloseComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ButtonCloseComponent, SvgComponent],
       providers: [{ provide: Location, useClass: MockLocationStrategy }]
