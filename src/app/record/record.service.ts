@@ -66,7 +66,7 @@ export class RecordService {
       });
     };
 
-    return forkJoin(types$, typesTranslations$).pipe(map(mapTranslations));
+    return forkJoin([types$, typesTranslations$]).pipe(map(mapTranslations));
   }
 
   private defaultRecord(): Observable<TimeRecord> {
