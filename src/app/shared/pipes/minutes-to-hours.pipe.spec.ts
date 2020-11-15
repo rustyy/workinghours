@@ -13,7 +13,7 @@ describe('minutes-to-hours.pipe', () => {
       providers: [{ provide: HelperService, useValue: spy }]
     });
 
-    helperServiceSpy = TestBed.get(HelperService);
+    helperServiceSpy = TestBed.inject(HelperService) as jasmine.SpyObj<HelperService>;
     pipe = new MinutesToHoursPipe(helperServiceSpy);
   });
 

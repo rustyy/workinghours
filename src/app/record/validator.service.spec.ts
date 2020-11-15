@@ -28,8 +28,8 @@ describe('ValidatorService', () => {
       providers: [ValidatorService, { provide: DatabaseService, useValue: spy }]
     });
 
-    validatorService = TestBed.get(ValidatorService);
-    dbServiceSpy = TestBed.get(DatabaseService);
+    validatorService = TestBed.inject(ValidatorService);
+    dbServiceSpy = TestBed.inject(DatabaseService) as jasmine.SpyObj<DatabaseService>;
 
     fb = new FormBuilder();
   });
