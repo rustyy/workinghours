@@ -1,11 +1,20 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
+export interface WeekYear {
+  week: number;
+  year: number;
+}
+
+export interface WeekNavigation extends WeekYear {
+  path: string;
+}
+
 @Injectable()
 export class HelperService {
   constructor() {}
 
-  static parseYearWeek(y, w, direction) {
+  static parseYearWeek(y: number, w: number, direction: 'prev'|'next') {
     const m = {
       prev: 'subtract',
       next: 'add'
@@ -13,14 +22,14 @@ export class HelperService {
 
     const mom = moment(`${y} ${w} 1`, 'YYYY W E')[m[direction]](1, 'w');
     const week = +mom.format('W');
-    const weeksInYear = mom.isoWeeksInYear();
+    const weeksInYear: number = mom.isoWeeksInYear();
 
     return { week, weeksInYear };
   }
 
   // @todo typing return value
   // @todo: can be static
-  getMinMaxTime(year, week) {
+  getMinMaxTime(year: number, week: number) {
     const format = 'YYYY W E HH:mm:ss.SSS';
     const start = `${year} ${week} 1 00:00:00.000`;
     const end = `${year} ${week} 7 23:59:59.999`;
@@ -49,7 +58,7 @@ export class HelperService {
     return moment(data).format('HH:mm');
   }
 
-  getNextWeek(curYear: number, curWeek: number): { year: number; week: number; path: string } {
+  getNextWeek(curYear: number, curWeek: number): WeekNavigation {
     const { week, weeksInYear } = HelperService.parseYearWeek(curYear, curWeek, 'next');
     const year = curWeek === weeksInYear ? curYear + 1 : curYear;
     const path = `/${year}/${week}`;
@@ -57,7 +66,7 @@ export class HelperService {
     return { year, week, path };
   }
 
-  getPrevWeek(curYear: number, curWeek: number): { year: number; week: number; path: string } {
+  getPrevWeek(curYear: number, curWeek: number): WeekNavigation {
     const { week } = HelperService.parseYearWeek(curYear, curWeek, 'prev');
     const year = curWeek === 1 ? curYear - 1 : curYear;
     const path = `/${year}/${week}`;
