@@ -4,7 +4,7 @@ import { TimeRecord } from '../../../types/TimeRecord';
 @Component({
   selector: 'app-record-list-item',
   templateUrl: './record-list-item.component.html',
-  styleUrls: ['./record-list-item.component.scss']
+  styleUrls: ['./record-list-item.component.scss'],
 })
 export class RecordListItemComponent implements OnInit {
   @Input() item: TimeRecord;

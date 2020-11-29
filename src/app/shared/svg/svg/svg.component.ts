@@ -3,7 +3,7 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 @Component({
   selector: 'app-svg',
   templateUrl: './svg.component.html',
-  styleUrls: ['./svg.component.scss']
+  styleUrls: ['./svg.component.scss'],
 })
 export class SvgComponent implements OnInit {
   idName: string;

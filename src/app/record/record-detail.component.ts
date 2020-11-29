@@ -10,7 +10,7 @@ import { RecordService } from './record.service';
 @Component({
   selector: 'app-record-detail',
   templateUrl: './record-detail.component.html',
-  styleUrls: ['./record-detail.component.scss']
+  styleUrls: ['./record-detail.component.scss'],
 })
 export class RecordDetailComponent implements OnInit, OnDestroy {
   types$: Observable<any>;
@@ -30,11 +30,11 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
       end: ['', Validators.required],
       overall: ['', Validators.required],
       break: ['', Validators.required],
-      project: ['']
+      project: [''],
     },
     {
       validators: [this.validatorService.validateStartEnd()],
-      asyncValidators: [this.validatorService.validateUniqueEntry()]
+      asyncValidators: [this.validatorService.validateUniqueEntry()],
     }
   );
 
@@ -53,7 +53,7 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
     this.route.params
       .pipe(take(1))
       .pipe(switchMap(({ id }) => this.recordService.getRecord(+id)))
-      .subscribe(record => {
+      .subscribe((record) => {
         this.recordService.setControlValues(this.recordForm, record);
         this.initialized = true;
       });
@@ -65,7 +65,7 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   /**

@@ -5,7 +5,7 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
   selector: '[app-button]',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
-  exportAs: 'appButton'
+  exportAs: 'appButton',
 })
 export class ButtonComponent implements OnInit {
   hostEl: HTMLElement;
@@ -20,7 +20,7 @@ export class ButtonComponent implements OnInit {
 
   ngOnInit() {
     this.renderer.addClass(this.hostEl, this.baseClassName);
-    this.modifier = [...this.modifier, this.size].filter(id => id);
+    this.modifier = [...this.modifier, this.size].filter((id) => id);
     this.modifier.forEach(this.addModifierToHost.bind(this));
   }
 
