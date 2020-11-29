@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 
@@ -28,7 +26,7 @@ export class DatabaseService {
     return from(this.db.records.get({ id }));
   }
 
-  public getRecordsInTimeRange(start, end) {
+  public getRecordsInTimeRange(start: number, end: number) {
     return from(
       this.db.records
         .where('start')
