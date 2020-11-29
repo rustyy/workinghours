@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { transition, trigger, useAnimation } from '@angular/animations';
@@ -5,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { SendService } from '../../send/send.service';
-import {RecordListService, Summary, TimeRange} from '../record-list.service';
+import { RecordListService, Summary, TimeRange } from '../record-list.service';
 import { listToList } from '../../shared/animations/listToList';
 import { TimeRecord } from '../../../types/TimeRecord';
 
@@ -13,7 +14,7 @@ import { TimeRecord } from '../../../types/TimeRecord';
   selector: 'app-record-list',
   templateUrl: './record-list.component.html',
   styleUrls: ['./record-list.component.scss'],
-  animations: [trigger('list', [transition('* => *', [useAnimation(listToList)])])]
+  animations: [trigger('list', [transition('* => *', [useAnimation(listToList)])])],
 })
 export class RecordListComponent implements OnInit {
   records$: Observable<TimeRecord[]>;
@@ -39,7 +40,7 @@ export class RecordListComponent implements OnInit {
   private setYearWeek(): void {
     this.timeRange$ = this.route.params.pipe(
       map(({ year, week }) => this.recordService.mapYearWeek({ year: +year, week: +week })),
-      map(x => this.recordService.currentTimeRange(x))
+      map((x) => this.recordService.currentTimeRange(x))
     );
   }
 }

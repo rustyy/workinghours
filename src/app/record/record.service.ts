@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';

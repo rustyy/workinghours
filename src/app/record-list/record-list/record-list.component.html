@@ -22,7 +22,7 @@
         >h
       </div>
       <div
-        *ngIf="summary.progress >= 0"
+        *ngIf="$any(summary).progress >= 0"
         [style.width]="summary.progress + '%'"
         class="record-list__summary-progress"
       ></div>

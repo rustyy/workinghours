@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Component({

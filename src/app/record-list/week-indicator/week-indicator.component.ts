@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Component, Input } from '@angular/core';
 
 @Component({

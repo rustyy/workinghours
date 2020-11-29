@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { Injectable } from '@angular/core';
 import { ValidatorFn, FormGroup, ValidationErrors } from '@angular/forms';
 import * as moment from 'moment';
