@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
@@ -8,7 +6,7 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
   styleUrls: ['./svg.component.scss'],
 })
 export class SvgComponent implements OnInit {
-  idName: string;
+  idName = '';
   sizeModifier = 'app-svg--medium';
 
   @Input() set size(val: string) {
