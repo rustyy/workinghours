@@ -12,8 +12,8 @@ export class TimesheetDatabase extends Dexie {
   private readonly typeTable: Dexie.Table<TimeRecordType, number>;
 
   schema = {
-    [this.RECORD_TABLE_NAME]: '++id, date, type, start, end, overall',
-    [this.TYPE_TABLE_NAME]: '&id, name'
+    [this.RECORD_TABLE_NAME]: '++id, type, start, end, overall, project',
+    [this.TYPE_TABLE_NAME]: '&id, name',
   };
 
   constructor() {
@@ -27,9 +27,9 @@ export class TimesheetDatabase extends Dexie {
         { id: 0, name: 'default' },
         { id: 1, name: 'illness' },
         { id: 2, name: 'holiday' },
-        { id: 3, name: 'public holiday' }
+        { id: 3, name: 'public holiday' },
       ] as TimeRecordType[])
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   }
 
   get records() {
