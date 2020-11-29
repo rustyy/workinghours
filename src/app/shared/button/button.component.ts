@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
@@ -13,7 +11,7 @@ export class ButtonComponent implements OnInit {
   hostEl: HTMLElement;
   baseClassName = 'button';
 
-  @Input() size: string;
+  @Input() size = '';
   @Input() modifier: string[] = [];
 
   constructor(private el: ElementRef, private renderer: Renderer2) {
