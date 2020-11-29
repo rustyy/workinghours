@@ -1,6 +1,8 @@
-// @ts-nocheck
-
 import { Injectable } from '@angular/core';
+
+interface ISetting {
+  [key: string]: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -8,19 +10,20 @@ import { Injectable } from '@angular/core';
 export class SettingsService {
   constructor() {}
 
-  updateMultiple(settings: { key: string; value: string }): void {
-    for (const settingsKey in settings) {
-      if (settings.hasOwnProperty(settingsKey)) {
-        this.set({ key: settingsKey, value: settings[settingsKey] });
+  updateMultiple(settings: ISetting): void {
+    for (const key in settings) {
+      if (settings.hasOwnProperty(key)) {
+        const value = settings[key];
+        this.set(key, value);
       }
     }
   }
 
-  set({ key, value }: { key: string; value: string }): void {
+  set(key: string, value: string): void {
     localStorage.setItem(key, value);
   }
 
-  get(key: string): string {
-    return localStorage.getItem(key) || '';
+  get(key: string): string | null {
+    return localStorage.getItem(key);
   }
 }
