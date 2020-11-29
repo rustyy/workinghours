@@ -9,7 +9,7 @@ import { SettingsService } from '../settings/settings.service';
 import { HelperService } from '../shared/helper/helper.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SendService {
   constructor(
@@ -35,7 +35,7 @@ export class SendService {
       'Th',
       'Fr',
       'Sa',
-      'Su'
+      'Su',
     ]);
     return combineLatest([records$, translations$]).pipe(map(this.mapper.bind(this)));
   }
@@ -57,9 +57,9 @@ export class SendService {
       const o = type > 0 ? '' : `${this.helperService.minutesToHhMm(overall)}h`;
 
       const lines = [
-        [d, startEnd, o].filter(id => id).join('          '),
+        [d, startEnd, o].filter((id) => id).join('          '),
         `${translations['DETAIL.PROJECT']}: ${project || '--'}`,
-        '________________________________________'
+        '________________________________________',
       ].join('\n');
 
       return '\n' + lines + '\n';

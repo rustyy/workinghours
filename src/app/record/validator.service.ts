@@ -38,12 +38,12 @@ export class ValidatorService {
       const end = moment(`${dateValue} ${endValue}`, 'YYYY-MM-DD HH:mm').valueOf();
 
       return this.dbService.getRecordsInTimeRange(startOfDay, endOfDay).pipe(
-        map(records => {
+        map((records) => {
           const conflictingRecords = records
             // Ignore if record being edited.
-            .filter(record => record.id !== id)
+            .filter((record) => record.id !== id)
             // Filter conflicting time windows.
-            .filter(record => record.start < end && record.end > start);
+            .filter((record) => record.start < end && record.end > start);
 
           return conflictingRecords.length ? { conflictingRecord: conflictingRecords } : null;
         })
