@@ -23,6 +23,8 @@
             "outputPath": "dist/workinghours",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
@@ -30,7 +32,7 @@
               "src/.htaccess",
               "src/favicon.ico",
               "src/assets",
-              "src/manifest.json",
+              "src/manifest.webmanifest",
               "src/robots.txt"
             ],
             "styles": [
