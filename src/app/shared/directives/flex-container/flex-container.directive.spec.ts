@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FlexContainerDirective } from './flex-container.directive';
 import { Component, ElementRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -45,10 +44,11 @@ describe('FlexContainerDirective', () => {
 
   it('should set flex-grow, flex-basis and width for child-elements', () => {
     const hostElement = elements[0].nativeElement;
-    Array.from(hostElement.children).forEach((child: HTMLElement) => {
+
+    for (const child of hostElement.children) {
       expect(child.style.flexGrow).toBe('0');
       expect(child.style.flexBasis).toBe('46%');
       expect(child.style.width).toBe('46%');
-    });
+    }
   });
 });
