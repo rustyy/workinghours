@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Injectable } from '@angular/core';
 import moment from 'moment';
 
@@ -17,12 +15,9 @@ export class HelperService {
   constructor() {}
 
   static parseYearWeek(y: number, w: number, direction: 'prev' | 'next') {
-    const m = {
-      prev: 'subtract',
-      next: 'add',
-    };
+    let mom = moment(`${y} ${w} 1`, 'YYYY W E');
+    mom = direction === 'prev' ? mom.subtract(1, 'w') : mom.add(1, 'w');
 
-    const mom = moment(`${y} ${w} 1`, 'YYYY W E')[m[direction]](1, 'w');
     const week = +mom.format('W');
     const weeksInYear: number = mom.isoWeeksInYear();
 
@@ -56,7 +51,7 @@ export class HelperService {
     return `${hoursString}${delimiter}${minutesString}`;
   }
 
-  toHHmm(data): string {
+  toHHmm(data: number | string): string {
     return moment(data).format('HH:mm');
   }
 
