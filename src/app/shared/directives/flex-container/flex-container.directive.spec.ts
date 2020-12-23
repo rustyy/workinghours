@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { FlexContainerDirective } from './flex-container.directive';
 import { Component, ElementRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -9,7 +10,7 @@ import { By } from '@angular/platform-browser';
       <div></div>
       <div></div>
     </div>
-  `
+  `,
 })
 class TestComponent {}
 
@@ -19,7 +20,7 @@ let elements: ElementRef[];
 describe('FlexContainerDirective', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      declarations: [FlexContainerDirective, TestComponent]
+      declarations: [FlexContainerDirective, TestComponent],
     }).createComponent(TestComponent);
 
     fixture.detectChanges();
