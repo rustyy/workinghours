@@ -7,7 +7,7 @@ import { WeekIndicatorComponent } from './week-indicator.component';
 describe('WeekIndicatorComponent', () => {
   @Pipe({ name: 'translate' })
   class MockedTranslatePipe implements PipeTransform {
-    transform(value: any, ...args): any {
+    transform(value: any): any {
       return value;
     }
   }
@@ -17,7 +17,7 @@ describe('WeekIndicatorComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [WeekIndicatorComponent, MockedTranslatePipe]
+      declarations: [WeekIndicatorComponent, MockedTranslatePipe],
     });
 
     const format = 'DD.MM.YYYY';

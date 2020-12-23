@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -7,10 +6,11 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./week-indicator.component.scss'],
 })
 export class WeekIndicatorComponent {
-  @Input() year: number;
-  @Input() week: number;
-  @Input() from: number;
-  @Input() to: number;
+  // W52 2020 - 12/21 - 12/27
+  @Input() year = 2020;
+  @Input() week = 52;
+  @Input() from = 1608505200000;
+  @Input() to = 1609109999999;
 
   constructor() {}
 }
