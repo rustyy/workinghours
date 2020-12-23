@@ -4,7 +4,7 @@ import { HelperService } from '../shared/helper/helper.service';
 import { DatabaseService } from '../shared/database/database.service';
 import { SettingsService } from '../settings/settings.service';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { RecordListService } from './record-list.service';
 

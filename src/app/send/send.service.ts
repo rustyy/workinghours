@@ -1,6 +1,6 @@
 // @ts-nocheck
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';

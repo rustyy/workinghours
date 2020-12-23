@@ -3,7 +3,7 @@ import { UniqueEntryValidator } from './UniqueEntryValidator';
 import { DatabaseService } from '../database/database.service';
 import { FormBuilder } from '@angular/forms';
 import { of } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 
 const fb = new FormBuilder();
 

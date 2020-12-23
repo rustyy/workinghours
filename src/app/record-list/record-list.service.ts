@@ -5,7 +5,7 @@ import { Params } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 import { TimeRecord } from '../../types/TimeRecord';
 import { TimeRecordType } from '../../types/TimeRecordType';

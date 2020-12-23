@@ -3,7 +3,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import * as moment from 'moment';
+import moment from 'moment';
 import { HelperService } from '../shared/helper/helper.service';
 import { FormGroup } from '@angular/forms';
 import { DatabaseService } from '../shared/database/database.service';
