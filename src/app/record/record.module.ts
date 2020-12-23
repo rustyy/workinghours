@@ -8,7 +8,6 @@ import { InputModule } from '../shared/input/input.module';
 import { SvgModule } from '../shared/svg/svg.module';
 import { ButtonModule } from '../shared/button/button.module';
 import { DirectivesModule } from '../shared/directives/directives.module';
-import { ValidatorService } from './validator.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { ModalModule } from '../shared/modal/modal.module';
 
@@ -25,9 +24,9 @@ import { ModalModule } from '../shared/modal/modal.module';
     DirectivesModule,
     RecordRoutingModule,
     TranslateModule,
-    ModalModule
+    ModalModule,
   ],
   exports: [RecordDetailComponent, RecordRoutingModule],
-  providers: [ValidatorService]
+  providers: [],
 })
 export class RecordModule {}

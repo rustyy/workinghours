@@ -6,8 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, take } from 'rxjs/operators';
 import { Observable, Subscription, of } from 'rxjs';
 import { Location } from '@angular/common';
-import { ValidatorService } from './validator.service';
 import { RecordService } from './record.service';
+import { validateStartEnd } from '../shared/validators/validateStartEnd';
+import { UniqueEntryValidator } from '../shared/validators/UniqueEntryValidator';
 
 @Component({
   selector: 'app-record-detail',
@@ -35,14 +36,14 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
       project: [''],
     },
     {
-      validators: [this.validatorService.validateStartEnd()],
-      asyncValidators: [this.validatorService.validateUniqueEntry()],
+      validators: [validateStartEnd],
+      asyncValidators: [this.uniqueEntryValidator.validate.bind(this.uniqueEntryValidator)],
     }
   );
 
   constructor(
+    private uniqueEntryValidator: UniqueEntryValidator,
     private recordService: RecordService,
-    private validatorService: ValidatorService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
