@@ -1,27 +1,27 @@
-// @ts-nocheck
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
-import { Component, Input, OnInit } from '@angular/core';
+export interface SelectOption {
+  id: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
 })
-export class InputComponent implements OnInit {
+export class InputComponent {
   @Input()
-  parentForm;
+  parentForm: FormGroup | undefined;
   @Input()
-  type;
+  type = 'text';
   @Input()
   readonly = false;
   @Input()
-  id;
+  id = '';
   @Input()
-  label;
+  label = '';
   @Input()
-  options;
-
-  constructor() {}
-
-  ngOnInit() {}
+  options: Array<SelectOption> = [];
 }
