@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Injectable } from '@angular/core';
 import moment from 'moment';
 import { Observable, combineLatest } from 'rxjs';
@@ -19,7 +18,8 @@ export class SendService {
     private translateService: TranslateService
   ) {}
 
-  static formatDay(time: string, dayMapping: object): string {
+  // @todo: type for dayMapping
+  static formatDay(time: moment.MomentInput, dayMapping: any): string {
     const s = moment(time);
     const dayShort = s.format('dd');
     const date = s.format('DD.MM.YYYY');
@@ -41,16 +41,20 @@ export class SendService {
     return combineLatest([records$, translations$]).pipe(map(this.mapper.bind(this)));
   }
 
-  private mapper([records, translations]) {
-    const mail = this.settingsService.get('email');
-    const name = this.settingsService.get('name');
+  // @todo: type for translations
+  private mapper([records, translations]: [TimeRecord[], any]) {
+    console.log('records', records);
+    console.log('translations', translations);
+
+    const mail = this.settingsService.get('email') || '';
+    const name = this.settingsService.get('name') || '';
     const mailBody = records.map(this.buildMailBody(translations));
 
     return `mailto:${mail}?subject=workinghours&body=${escape(name)}${escape(mailBody.join(''))}`;
   }
 
-  private buildMailBody(translations) {
-    return ({ type, start, end, overall, project }) => {
+  private buildMailBody(translations: any) {
+    return ({ type, start, end, overall, project }: TimeRecord) => {
       const d = SendService.formatDay(start, translations);
       const s = moment(start).format('HH:mm');
       const e = moment(end).format('HH:mm');
