@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
@@ -14,7 +12,7 @@ import { SettingsService } from './settings.service';
 })
 export class SettingsComponent implements OnInit {
   environment = environment;
-  settingsForm: FormGroup;
+  settingsForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private settings: SettingsService, private location: Location) {}
 
