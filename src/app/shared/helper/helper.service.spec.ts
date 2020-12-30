@@ -23,7 +23,7 @@ describe('HelperService', () => {
     it('should return beginning timestamp and ending timestamp', () => {
       const expected = {
         minTime: 946854000000,
-        maxTime: 947458799999
+        maxTime: 947458799999,
       };
       const actual = service.getMinMaxTime(2000, 1);
       expect(actual.minTime).toBe(expected.minTime, 'minTime incorrect');
@@ -57,7 +57,7 @@ describe('HelperService', () => {
       const expected = {
         year: 2020,
         week: 1,
-        path: '/2020/1'
+        path: '/2020/1',
       };
 
       expect(actual).toEqual(expected);
@@ -68,7 +68,7 @@ describe('HelperService', () => {
       const expected = {
         year: 2019,
         week: 52,
-        path: '/2019/52'
+        path: '/2019/52',
       };
 
       expect(actual).toEqual(expected);
@@ -82,7 +82,7 @@ describe('HelperService', () => {
       const expected = {
         year: 2020,
         week: 2,
-        path: '/2020/2'
+        path: '/2020/2',
       };
 
       expect(actual).toEqual(expected);
