@@ -14,10 +14,10 @@ export interface WeekNavigation extends WeekYear {
 export class HelperService {
   constructor() {}
 
-  static parseYearWeek(y: number, w: number, direction: 'prev'|'next') {
+  static parseYearWeek(y: number, w: number, direction: 'prev' | 'next') {
     const m = {
       prev: 'subtract',
-      next: 'add'
+      next: 'add',
     };
 
     const mom = moment(`${y} ${w} 1`, 'YYYY W E')[m[direction]](1, 'w');
@@ -36,7 +36,7 @@ export class HelperService {
 
     return {
       minTime: moment(start, format).valueOf(),
-      maxTime: moment(end, format).valueOf()
+      maxTime: moment(end, format).valueOf(),
     };
   }
 
