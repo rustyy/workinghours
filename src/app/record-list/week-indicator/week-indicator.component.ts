@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
 export class WeekIndicatorComponent {
   @Input() year: number;
   @Input() week: number;
-  @Input() from: string;
-  @Input() to: string;
+  @Input() from: number;
+  @Input() to: number;
 
   constructor() {}
 }

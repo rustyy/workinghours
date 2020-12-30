@@ -9,8 +9,21 @@ import * as moment from 'moment';
 import { TimeRecord } from '../../types/TimeRecord';
 import { TimeRecordType } from '../../types/TimeRecordType';
 import { DatabaseService } from '../shared/database/database.service';
-import { HelperService } from '../shared/helper/helper.service';
+import {HelperService, WeekNavigation, WeekYear} from '../shared/helper/helper.service';
 import { SettingsService } from '../settings/settings.service';
+
+export interface Summary {
+  current: number;
+  max?: number;
+  progress?: number;
+}
+
+export interface TimeRange extends WeekYear {
+  prev: WeekNavigation;
+  next: WeekNavigation;
+  from: number;
+  to: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +53,7 @@ export class RecordListService {
   }: {
     year?: string | number;
     week?: string | number;
-  }): { year: number; week: number } {
+  }): WeekYear {
     const now = moment();
     const w = now.isoWeek();
     const month = now.month();
@@ -66,22 +79,22 @@ export class RecordListService {
     };
   }
 
-  public sumHours(records: Observable<TimeRecord[]>): Observable<number> {
+  public sumHours(records: Observable<TimeRecord[]>) {
     return records.pipe(
-      map((recs: TimeRecord[]) => recs.map(r => r.overall)),
-      map((recs: []) => {
-        const hours = recs.reduce((acc: number, curr: number) => acc + curr, 0) / 60;
+      map((recs) => recs.map(r => r.overall)),
+      map((recs) => {
+        const hours = recs.reduce((acc, curr) => acc + curr, 0) / 60;
         // 2 decimal place.
         return Math.round(hours * 100) / 100;
       })
     );
   }
 
-  public summary(records: Observable<TimeRecord[]>): Observable<any> {
+  public summary(records: Observable<TimeRecord[]>): Observable<Summary> {
     const weeklyHours = +(this.settings.get('weeklyHours') || 0);
     return this.sumHours(records).pipe(
       map(sum => {
-        const result = { current: sum } as any;
+        const result: Summary = { current: sum };
 
         if (weeklyHours) {
           result.max = weeklyHours;

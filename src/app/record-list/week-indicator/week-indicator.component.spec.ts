@@ -27,12 +27,8 @@ describe('WeekIndicatorComponent', () => {
 
     component.year = 2020;
     component.week = 50;
-    component.from = moment('01.01.2020', format)
-      .valueOf()
-      .toString();
-    component.to = moment('04.01.2020', format)
-      .valueOf()
-      .toString();
+    component.from = moment('01.01.2020', format).valueOf();
+    component.to = moment('04.01.2020', format).valueOf();
 
     fixture.detectChanges();
   });

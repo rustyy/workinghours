@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { SendService } from '../../send/send.service';
-import { RecordListService } from '../record-list.service';
+import {RecordListService, Summary, TimeRange} from '../record-list.service';
 import { listToList } from '../../shared/animations/listToList';
 import { TimeRecord } from '../../../types/TimeRecord';
 
@@ -18,9 +18,9 @@ import { TimeRecord } from '../../../types/TimeRecord';
 export class RecordListComponent implements OnInit {
   records$: Observable<TimeRecord[]>;
   // @Todo: interface.
-  timeRange$: Observable<any>;
+  timeRange$: Observable<TimeRange>;
   mailUrl$: Observable<string>;
-  summary$: Observable<number>;
+  summary$: Observable<Summary>;
 
   constructor(
     private route: ActivatedRoute,
