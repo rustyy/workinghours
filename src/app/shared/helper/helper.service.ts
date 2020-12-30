@@ -59,15 +59,18 @@ export class HelperService {
   }
 
   getNextWeek(curYear: number, curWeek: number): WeekNavigation {
-    const { week, weeksInYear } = HelperService.parseYearWeek(curYear, curWeek, 'next');
-    const year = curWeek === weeksInYear ? curYear + 1 : curYear;
+    const mom = moment(`${curYear} ${curWeek} 1`, 'YYYY W E');
+    const weeks = mom.isoWeeksInYear();
+    const year = curWeek === weeks ? curYear + 1 : curYear;
+    const week = +mom.add(1, 'w').format('W');
     const path = `/${year}/${week}`;
 
     return { year, week, path };
   }
 
   getPrevWeek(curYear: number, curWeek: number): WeekNavigation {
-    const { week } = HelperService.parseYearWeek(curYear, curWeek, 'prev');
+    const mom = moment(`${curYear} ${curWeek} 1`, 'YYYY W E');
+    const week = +mom.subtract(1, 'w').format('W');
     const year = curWeek === 1 ? curYear - 1 : curYear;
     const path = `/${year}/${week}`;
 

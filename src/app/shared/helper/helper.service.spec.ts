@@ -94,7 +94,19 @@ describe('HelperService', () => {
       const expected = {
         year: 2020,
         week: 1,
-        path: '/2020/1'
+        path: '/2020/1',
+      };
+
+      expect(actual).toEqual(expected);
+    });
+
+    it('should 2021/1 follows 2020/53', () => {
+      const actual = service.getNextWeek(2020, 53);
+
+      const expected = {
+        year: 2021,
+        week: 1,
+        path: '/2021/1',
       };
 
       expect(actual).toEqual(expected);
