@@ -9,7 +9,7 @@ import * as moment from 'moment';
 import { TimeRecord } from '../../types/TimeRecord';
 import { TimeRecordType } from '../../types/TimeRecordType';
 import { DatabaseService } from '../shared/database/database.service';
-import {HelperService, WeekNavigation, WeekYear} from '../shared/helper/helper.service';
+import { HelperService, WeekNavigation, WeekYear } from '../shared/helper/helper.service';
 import { SettingsService } from '../settings/settings.service';
 
 export interface Summary {
@@ -26,7 +26,7 @@ export interface TimeRange extends WeekYear {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecordListService {
   constructor(private helperService: HelperService, private db: DatabaseService, private settings: SettingsService) {}
@@ -47,13 +47,7 @@ export class RecordListService {
   /**
    * @todo: year/week to be required.
    */
-  public mapYearWeek({
-    year,
-    week
-  }: {
-    year?: string | number;
-    week?: string | number;
-  }): WeekYear {
+  public mapYearWeek({ year, week }: { year?: string | number; week?: string | number }): WeekYear {
     const now = moment();
     const w = now.isoWeek();
     const month = now.month();
@@ -75,13 +69,13 @@ export class RecordListService {
       prev: this.helperService.getPrevWeek(year, week),
       next: this.helperService.getNextWeek(year, week),
       from: minTime,
-      to: maxTime
+      to: maxTime,
     };
   }
 
   public sumHours(records: Observable<TimeRecord[]>) {
     return records.pipe(
-      map((recs) => recs.map(r => r.overall)),
+      map((recs) => recs.map((r) => r.overall)),
       map((recs) => {
         const hours = recs.reduce((acc, curr) => acc + curr, 0) / 60;
         // 2 decimal place.
@@ -93,7 +87,7 @@ export class RecordListService {
   public summary(records: Observable<TimeRecord[]>): Observable<Summary> {
     const weeklyHours = +(this.settings.get('weeklyHours') || 0);
     return this.sumHours(records).pipe(
-      map(sum => {
+      map((sum) => {
         const result: Summary = { current: sum };
 
         if (weeklyHours) {
@@ -109,7 +103,7 @@ export class RecordListService {
   private getRecords({ minTime, maxTime }: { minTime: number; maxTime: number }): Observable<TimeRecord[]> {
     return forkJoin({
       records: this.db.getRecordsInTimeRange(minTime, maxTime),
-      types: this.db.getTypes()
+      types: this.db.getTypes(),
     }).pipe(map(this.recordTypeMapper));
   }
 

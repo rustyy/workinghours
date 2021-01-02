@@ -24,8 +24,8 @@ describe('RecordListService', () => {
         RecordListService,
         { provide: HelperService, useValue: spyHelper },
         { provide: SettingsService, useValue: spySettings },
-        { provide: DatabaseService, useValue: spyDb }
-      ]
+        { provide: DatabaseService, useValue: spyDb },
+      ],
     });
 
     service = TestBed.inject(RecordListService);
