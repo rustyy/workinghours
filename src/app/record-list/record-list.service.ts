@@ -54,9 +54,13 @@ export class RecordListService {
     let y = +now.format('YYYY');
     y = month === 11 && w === 1 ? y + 1 : y;
 
+    if (month === 0 && w > 50) {
+      y = y - 1;
+    }
+
     return {
       year: +(year || y),
-      week: +(week || w)
+      week: +(week || w),
     };
   }
 

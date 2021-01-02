@@ -57,6 +57,12 @@ describe('RecordListService', () => {
       actual = service.mapYearWeek({});
       expect(actual).toEqual({ year: 2020, week: 53 });
       jasmine.clock().uninstall();
+
+      now = moment('2021-01-03', 'YYYY-MM-DD').toDate();
+      jasmine.clock().mockDate(now);
+      actual = service.mapYearWeek({});
+      expect(actual).toEqual({ year: 2020, week: 53 });
+      jasmine.clock().uninstall();
     });
   });
 
