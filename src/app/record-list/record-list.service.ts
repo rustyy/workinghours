@@ -1,17 +1,13 @@
-// @ts-nocheck
+import moment from 'moment';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-
 import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-
-import moment from 'moment';
-
-import { TimeRecord } from '../../types/TimeRecord';
 import { TimeRecordType } from '../../types/TimeRecordType';
 import { DatabaseService } from '../shared/database/database.service';
 import { HelperService, WeekNavigation, WeekYear } from '../shared/helper/helper.service';
 import { SettingsService } from '../settings/settings.service';
+import { TimeRecord } from '../shared/database/TimesheetDatabase';
 
 export interface Summary {
   current: number;
@@ -39,8 +35,10 @@ export class RecordListService {
    */
   public recordsByRouteParams(params: Params) {
     return params.pipe(
-      map(({ year, week }) => this.mapYearWeek({ year, week })),
-      map(({ year, week }) => this.helperService.getMinMaxTime(year, week)),
+      map(({ year, week }: { year: string; week: string }) => {
+        return this.mapYearWeek({ year, week });
+      }),
+      map(({ year, week }: { year: number; week: number }) => this.helperService.getMinMaxTime(year, week)),
       switchMap((o: any) => this.getRecords(o))
     );
   }

@@ -3,10 +3,9 @@ import moment from 'moment';
 import { Observable, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
-
-import { TimeRecord } from '../../types/TimeRecord';
 import { SettingsService } from '../settings/settings.service';
 import { HelperService } from '../shared/helper/helper.service';
+import { TimeRecord } from '../shared/database/TimesheetDatabase';
 
 @Injectable({
   providedIn: 'root',
@@ -43,9 +42,6 @@ export class SendService {
 
   // @todo: type for translations
   private mapper([records, translations]: [TimeRecord[], any]) {
-    console.log('records', records);
-    console.log('translations', translations);
-
     const mail = this.settingsService.get('email') || '';
     const name = this.settingsService.get('name') || '';
     const mailBody = records.map(this.buildMailBody(translations));

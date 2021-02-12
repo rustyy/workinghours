@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
+import { from } from 'rxjs';
 
-import { TimesheetDatabase } from './TimesheetDatabase';
-import { TimeRecord } from '../../../types/TimeRecord';
+import { TimeRecord, TimesheetDatabase } from './TimesheetDatabase';
 
 @Injectable({
   providedIn: 'root',
@@ -14,29 +13,29 @@ export class DatabaseService {
     this.db = new TimesheetDatabase();
   }
 
-  public addRecord(record: TimeRecord): Observable<number> {
+  public addRecord(record: TimeRecord) {
     return from(this.db.records.put(record));
   }
 
-  public deleteRecord(id: number): Observable<void> {
+  public deleteRecord(id: number) {
     return from(this.db.records.delete(id));
   }
 
-  public getRecord(id: number): Observable<any> {
+  public getRecord(id: number) {
     return from(this.db.records.get({ id }));
   }
 
-  public getRecordsInTimeRange(start: number, end: number) {
+  public getRecordsInTimeRange(timestampStart: number, timestampEnd: number) {
     return from(
       this.db.records
         .where('start')
-        .aboveOrEqual(start)
-        .and((row) => row.end <= end)
+        .aboveOrEqual(timestampStart)
+        .and((row) => row.end <= timestampEnd)
         .toArray()
     );
   }
 
-  public getTypes(): Observable<any[]> {
+  public getTypes() {
     return from(this.db.types.toArray());
   }
 }

@@ -1,14 +1,13 @@
-// @ts-nocheck
-
+import moment from 'moment/moment';
+import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, take } from 'rxjs/operators';
-import { Observable, Subscription, of } from 'rxjs';
 import { Location } from '@angular/common';
-import { RecordService } from './record.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 import { validateStartEnd } from '../shared/validators/validateStartEnd';
 import { UniqueEntryValidator } from '../shared/validators/UniqueEntryValidator';
+import { RecordService } from './record.service';
+import { TimeRecord } from '../shared/database/TimesheetDatabase';
 
 @Component({
   selector: 'app-record-detail',
@@ -20,6 +19,7 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
   showDelete = false;
   confirmation = false;
   initialized = false;
+
   private subscriptions: Subscription[] = [];
 
   recordForm = this.fb.group(
@@ -27,12 +27,12 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
       id: [''],
       created: [''],
       updated: [''],
-      date: ['', Validators.required],
+      date: [moment().format('YYYY-MM-DD'), Validators.required],
       type: ['0', Validators.required],
-      start: ['', Validators.required],
-      end: ['', Validators.required],
-      overall: ['', Validators.required],
-      break: ['', Validators.required],
+      start: ['08:00', Validators.required],
+      end: ['17:00', Validators.required],
+      overall: ['08:00', Validators.required],
+      break: ['01:00', Validators.required],
       project: [''],
     },
     {
@@ -48,23 +48,21 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location
-  ) {}
+  ) {
+    this.types$ = this.recordService.getTypes();
+  }
 
   ngOnInit() {
-    this.types$ = this.recordService.getTypes();
-
-    this.route.params
-      .pipe(take(1))
-      .pipe(switchMap(({ id }) => this.recordService.getRecord(+id)))
-      .subscribe((record) => {
-        this.recordService.setControlValues(this.recordForm, record);
-        this.initialized = true;
-      });
-
-    // @Todo
-    this.showDelete = this.router.url !== '/record/add';
-
+    const id = +(this.route.snapshot.paramMap.get('id') || 0);
+    this.showDelete = Boolean(id);
     this.setValueChangeListener();
+
+    this.recordService.getRecord(id).subscribe((record) => {
+      if (record) {
+        this.setControlValues(record);
+      }
+      this.initialized = true;
+    });
   }
 
   ngOnDestroy() {
@@ -105,5 +103,17 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
     });
 
     this.subscriptions.push(subscription);
+  }
+
+  private setControlValues(record: TimeRecord): void {
+    for (const prop in record) {
+      if (record.hasOwnProperty(prop)) {
+        const control = this.recordForm.get(prop);
+
+        if (control) {
+          control.setValue(record[prop]);
+        }
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-<a class="item" [routerLink]="['/record', item.id]">
+<a *ngIf="item" class="item" [routerLink]="['/record', item.id]">
   <div class="item__day">
     <div class="item__weekday">
       {{ item.start | date: 'EEEEEE' }}

@@ -1,16 +1,26 @@
-// @ts-nocheck
-
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import moment from 'moment';
 import { HelperService } from '../shared/helper/helper.service';
 import { FormGroup } from '@angular/forms';
 import { DatabaseService } from '../shared/database/database.service';
 import { TranslateService } from '@ngx-translate/core';
-
-import { TimeRecord } from '../../types/TimeRecord';
 import { TimeRecordType } from '../../types/TimeRecordType';
+import { TimeRecord } from '../shared/database/TimesheetDatabase';
+
+interface FormData {
+  date: string;
+  start: string;
+  end: string;
+  break: string;
+  overall: string;
+  type: string;
+  project?: string;
+  created?: string;
+  updated?: string;
+  id?: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -22,25 +32,23 @@ export class RecordService {
     private translateService: TranslateService
   ) {}
 
-  public getRecord(id: number): Observable<any> {
-    return id ? this.databaseService.getRecord(id).pipe(map((x) => this.recordToFormData(x))) : this.defaultRecord();
+  public getRecord(id: number): Observable<TimeRecord | undefined> {
+    return this.databaseService.getRecord(id).pipe(
+      map((record) => {
+        if (record) {
+          return this.recordToFormData(record);
+        }
+      })
+    );
   }
 
-  public addRecord(formData): Observable<number> {
+  public addRecord(formData: FormData): Observable<number> {
     const record = this.formDataToRecord(formData);
     return this.databaseService.addRecord(record).pipe(take(1));
   }
 
   public deleteRecord(id: number): Observable<void> {
     return this.databaseService.deleteRecord(id).pipe(take(1));
-  }
-
-  public setControlValues(fg: FormGroup, record: TimeRecord): void {
-    for (const prop in record) {
-      if (record.hasOwnProperty(prop)) {
-        fg.controls[prop].setValue(record[prop]);
-      }
-    }
   }
 
   public calculateOverall(fg: FormGroup): string {
@@ -63,6 +71,7 @@ export class RecordService {
       const [types, translations] = data;
 
       return types.map((type: TimeRecordType) => {
+        // @ts-ignore
         type.name = translations[`type${type.id}`];
         return type;
       });
@@ -71,27 +80,7 @@ export class RecordService {
     return forkJoin([types$, typesTranslations$]).pipe(map(mapTranslations));
   }
 
-  private defaultRecord(): Observable<TimeRecord> {
-    return of(this.recordToFormData(this.emptyRecord()));
-  }
-
-  private emptyRecord() {
-    const record: TimeRecord = {} as TimeRecord;
-    const start = moment().hours(8).minutes(0).seconds(0);
-    const end = moment(start).hours(17).minutes(0).seconds(0);
-
-    const duration = moment.duration(end.diff(start));
-    const overall = duration.asMinutes() - 60;
-
-    record.start = start.valueOf();
-    record.end = end.valueOf();
-    record.type = 0;
-    record.overall = overall;
-
-    return record;
-  }
-
-  private recordToFormData(record) {
+  private recordToFormData(record: TimeRecord) {
     const result: any = {};
     const { id, start, end, overall, type, project } = record;
 
@@ -123,44 +112,21 @@ export class RecordService {
     return result;
   }
 
-  private formDataToRecord(formData): TimeRecord {
-    const { id, date, start, end, overall, type, project, created } = formData;
-
-    const record = {} as TimeRecord;
+  private formDataToRecord(formData: FormData): TimeRecord {
+    const { id, date, start, end, overall, type, project } = formData;
     const now = moment().valueOf();
 
-    if (id) {
-      record.id = id;
-    }
+    const record: TimeRecord = {
+      id: id ? +id : undefined,
+      created: id ? undefined : now,
+      updated: now,
+      start: moment(`${date} ${start}`).valueOf(),
+      end: moment(`${date} ${end}`).valueOf(),
+      type: +type,
+      overall: this.helper.hhMmToMinutes(overall),
+      project: project ? escape(project) : undefined,
+    };
 
-    record.created = created ? +created : now;
-    record.updated = now;
-
-    if (date && start) {
-      record.start = moment(`${date} ${start}`).valueOf();
-    } else if (date && !start) {
-      record.start = moment(`${date}`).valueOf();
-    }
-
-    if (date && end) {
-      record.end = moment(`${date} ${end}`).valueOf();
-    } else if (date && !end) {
-      record.end = moment(`${date}`).valueOf();
-    }
-
-    if (overall) {
-      record.overall = this.helper.hhMmToMinutes(overall);
-    }
-
-    // @todo: why checking to number and casting in next line.
-    if (type >= 0) {
-      record.type = +type;
-    }
-
-    if (project) {
-      record.project = project;
-    }
-
-    return record;
+    return JSON.parse(JSON.stringify(record));
   }
 }

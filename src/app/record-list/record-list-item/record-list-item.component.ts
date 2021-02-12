@@ -1,6 +1,5 @@
-// @ts-nocheck
 import { Component, Input, OnInit } from '@angular/core';
-import { TimeRecord } from '../../../types/TimeRecord';
+import { TimeRecord } from '../../shared/database/TimesheetDatabase';
 
 @Component({
   selector: 'app-record-list-item',
@@ -8,17 +7,19 @@ import { TimeRecord } from '../../../types/TimeRecord';
   styleUrls: ['./record-list-item.component.scss'],
 })
 export class RecordListItemComponent implements OnInit {
-  @Input() item: TimeRecord;
+  @Input() item: TimeRecord | undefined;
 
-  isTranslatableType: boolean;
-  typeTranslationKey: string;
-  typeModifier: string;
+  isTranslatableType = false;
+  typeTranslationKey = '';
+  typeModifier = '';
 
   ngOnInit(): void {
-    const { type } = this.item;
+    if (this.item) {
+      const { type } = this.item;
 
-    this.isTranslatableType = type > 0;
-    this.typeModifier = `item__type--${type}`;
-    this.typeTranslationKey = `TYPES.type${type}`;
+      this.isTranslatableType = type > 0;
+      this.typeModifier = `item__type--${type}`;
+      this.typeTranslationKey = `TYPES.type${type}`;
+    }
   }
 }

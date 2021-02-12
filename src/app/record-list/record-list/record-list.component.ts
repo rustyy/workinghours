@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { transition, trigger, useAnimation } from '@angular/animations';
@@ -8,7 +7,7 @@ import { Observable } from 'rxjs';
 import { SendService } from '../../send/send.service';
 import { RecordListService, Summary, TimeRange } from '../record-list.service';
 import { listToList } from '../../shared/animations/listToList';
-import { TimeRecord } from '../../../types/TimeRecord';
+import { TimeRecord } from '../../shared/database/TimesheetDatabase';
 
 @Component({
   selector: 'app-record-list',
@@ -17,11 +16,12 @@ import { TimeRecord } from '../../../types/TimeRecord';
   animations: [trigger('list', [transition('* => *', [useAnimation(listToList)])])],
 })
 export class RecordListComponent implements OnInit {
-  records$: Observable<TimeRecord[]>;
+  // @todo: avoid !
+  records$!: Observable<TimeRecord[]>;
   // @Todo: interface.
-  timeRange$: Observable<TimeRange>;
-  mailUrl$: Observable<string>;
-  summary$: Observable<Summary>;
+  timeRange$!: Observable<TimeRange>;
+  mailUrl$!: Observable<string>;
+  summary$!: Observable<Summary>;
 
   constructor(
     private route: ActivatedRoute,

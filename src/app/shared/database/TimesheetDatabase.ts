@@ -1,8 +1,19 @@
 import Dexie from 'dexie';
 import { TimeRecordType } from '../../../types/TimeRecordType';
-import { TimeRecord } from '../../../types/TimeRecord';
 
 const DB_NAME = 'TimesheetDatabase';
+
+export interface TimeRecord {
+  [key: string]: any;
+  id?: number;
+  project?: string;
+  created?: number;
+  updated?: number;
+  type: number;
+  start: number;
+  end: number;
+  overall: number;
+}
 
 export class TimesheetDatabase extends Dexie {
   private readonly VERSION = 1;
@@ -12,7 +23,7 @@ export class TimesheetDatabase extends Dexie {
   private readonly typeTable: Dexie.Table<TimeRecordType, number>;
 
   schema = {
-    [this.RECORD_TABLE_NAME]: '++id, type, start, end, overall, project',
+    [this.RECORD_TABLE_NAME]: '++id, created, updated, type, start, end, overall, project',
     [this.TYPE_TABLE_NAME]: '&id, name',
   };
 
