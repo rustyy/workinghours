@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TimeRecord } from '../../shared/database/TimesheetDatabase';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-record-list-item',
@@ -8,15 +9,18 @@ import { TimeRecord } from '../../shared/database/TimesheetDatabase';
 })
 export class RecordListItemComponent implements OnInit {
   @Input() item: TimeRecord | undefined;
-
+  start = '';
   isTranslatableType = false;
   typeTranslationKey = '';
   typeModifier = '';
+
+  constructor(private datePipe: DatePipe) {}
 
   ngOnInit(): void {
     if (this.item) {
       const { type } = this.item;
 
+      this.start = this.datePipe.transform(this.item.start, 'EEEEEE') || '';
       this.isTranslatableType = type > 0;
       this.typeModifier = `item__type--${type}`;
       this.typeTranslationKey = `TYPES.type${type}`;

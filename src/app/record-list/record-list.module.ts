@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RecordListComponent } from './record-list/record-list.component';
 import { RecordListItemComponent } from './record-list-item/record-list-item.component';
 import { WeekIndicatorComponent } from './week-indicator/week-indicator.component';
@@ -15,5 +15,6 @@ import { PageModule } from '../shared/page/page.module';
   declarations: [RecordListComponent, RecordListItemComponent, WeekIndicatorComponent],
   imports: [CommonModule, SvgModule, ButtonModule, RouterModule, PipesModule, TranslateModule, PageModule],
   exports: [RecordListComponent, RecordListRoutingModule],
+  providers: [DatePipe],
 })
 export class RecordListModule {}
