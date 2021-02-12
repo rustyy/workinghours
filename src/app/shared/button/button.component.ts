@@ -8,11 +8,10 @@ import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
   exportAs: 'appButton',
 })
 export class ButtonComponent implements OnInit {
-  hostEl: HTMLElement;
-  baseClassName = 'button';
-
   @Input() size = '';
   @Input() modifier: string[] = [];
+  hostEl: HTMLElement;
+  baseClassName = 'button';
 
   constructor(private el: ElementRef, private renderer: Renderer2) {
     this.hostEl = this.el.nativeElement;

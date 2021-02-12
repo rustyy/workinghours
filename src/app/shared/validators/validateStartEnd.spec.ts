@@ -3,14 +3,13 @@ import { validateStartEnd } from './validateStartEnd';
 
 const fb = new FormBuilder();
 
-const createMockGroup = (start = '', end = '', date = '', id = '') => {
-  return fb.group({
+const createMockGroup = (start = '', end = '', date = '', id = '') =>
+  fb.group({
     date: [date],
     start: [start],
     end: [end],
     id: [id],
   });
-};
 
 describe('validateStartEnd', () => {
   it('should return null if start value is empty', () => {

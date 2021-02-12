@@ -16,22 +16,25 @@ export interface TimeRecord {
 }
 
 export class TimesheetDatabase extends Dexie {
-  private readonly VERSION = 1;
-  private readonly RECORD_TABLE_NAME = 'timeRecords';
-  private readonly TYPE_TABLE_NAME = 'timeRecordTypes';
+  schema: { [key: string]: string };
+
+  private readonly currentVersion = 1;
+  private readonly recordTableName = 'timeRecords';
+  private readonly typeTableName = 'timeRecordTypes';
   private readonly recordTable: Dexie.Table<TimeRecord, number>;
   private readonly typeTable: Dexie.Table<TimeRecordType, number>;
 
-  schema = {
-    [this.RECORD_TABLE_NAME]: '++id, created, updated, type, start, end, overall, project',
-    [this.TYPE_TABLE_NAME]: '&id, name',
-  };
-
   constructor() {
     super(DB_NAME);
-    this.version(this.VERSION).stores(this.schema);
-    this.recordTable = this.table(this.RECORD_TABLE_NAME);
-    this.typeTable = this.table(this.TYPE_TABLE_NAME);
+
+    this.schema = {
+      [this.recordTableName]: '++id, created, updated, type, start, end, overall, project',
+      [this.typeTableName]: '&id, name',
+    };
+
+    this.version(this.currentVersion).stores(this.schema);
+    this.recordTable = this.table(this.recordTableName);
+    this.typeTable = this.table(this.typeTableName);
 
     this.typeTable
       .bulkPut([

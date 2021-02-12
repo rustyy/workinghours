@@ -19,9 +19,6 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
   showDelete = false;
   confirmation = false;
   initialized = false;
-
-  private subscriptions: Subscription[] = [];
-
   recordForm = this.fb.group(
     {
       id: [''],
@@ -40,6 +37,8 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
       asyncValidators: [this.uniqueEntryValidator.validate.bind(this.uniqueEntryValidator)],
     }
   );
+
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private uniqueEntryValidator: UniqueEntryValidator,

@@ -35,9 +35,7 @@ export class RecordListService {
    */
   public recordsByRouteParams(params: Params) {
     return params.pipe(
-      map(({ year, week }: { year: string; week: string }) => {
-        return this.mapYearWeek({ year, week });
-      }),
+      map(({ year, week }: { year: string; week: string }) => this.mapYearWeek({ year, week })),
       map(({ year, week }: { year: number; week: number }) => this.helperService.getMinMaxTime(year, week)),
       switchMap((o: any) => this.getRecords(o))
     );

@@ -17,9 +17,7 @@ import { RecordModule } from './record/record.module';
 import { RecordListModule } from './record-list/record-list.module';
 import { UpdateLayerModule } from './update-layer/update-layer.module';
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
+export const httpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(http);
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: httpLoaderFactory,
         deps: [HttpClient],
       },
     }),
