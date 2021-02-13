@@ -18,16 +18,13 @@ export class ButtonComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.renderer.addClass(this.hostEl, this.baseClassName);
-    this.modifier = [...this.modifier, this.size].filter((id) => id);
-    this.modifier.forEach(this.addModifierToHost.bind(this));
+    const mods = [...this.modifier, this.size].filter(Boolean).map(this.generateModifierClass);
+    [this.baseClassName, ...mods].forEach(this.addClassToHost);
   }
 
-  private addModifierToHost(modifier: string) {
-    this.renderer.addClass(this.hostEl, this.generateModifierClass(modifier));
-  }
+  private addClassToHost = (modifier: string) => {
+    this.renderer.addClass(this.hostEl, modifier);
+  };
 
-  private generateModifierClass(modifier: string) {
-    return `${this.baseClassName}--${modifier}`;
-  }
+  private generateModifierClass = (modifier: string) => `${this.baseClassName}--${modifier}`;
 }
