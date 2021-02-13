@@ -22,8 +22,4 @@ export class SvgComponent implements OnInit {
   ngOnInit(): void {
     this.renderer.addClass(this.elRef.nativeElement, this.sizeModifier);
   }
-
-  get absUrl(): string {
-    return window.location.href;
-  }
 }
