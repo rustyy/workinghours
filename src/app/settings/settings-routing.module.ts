@@ -5,14 +5,14 @@ import { RouterModule } from '@angular/router';
 
 const routes = [
   {
-    path: 'settings',
+    path: '',
     component: SettingsComponent,
-    data: { animation: 'closable' }
-  }
+    data: { animation: 'closable' },
+  },
 ];
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, RouterModule.forChild(routes)]
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class SettingsRoutingModule {}

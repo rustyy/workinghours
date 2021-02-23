@@ -4,18 +4,22 @@ import { RecordDetailComponent } from './record-detail.component';
 
 const routes = [
   {
-    path: 'record/add',
-    component: RecordDetailComponent,
-    data: { animation: 'closable' }
+    path: '',
+    redirectTo: 'add',
   },
   {
-    path: 'record/:id',
+    path: 'add',
     component: RecordDetailComponent,
-    data: { animation: 'closable' }
-  }
+    data: { animation: 'closable' },
+  },
+  {
+    path: ':id',
+    component: RecordDetailComponent,
+    data: { animation: 'closable' },
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)]
+  imports: [RouterModule.forChild(routes)],
 })
 export class RecordRoutingModule {}

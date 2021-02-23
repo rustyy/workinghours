@@ -10,10 +10,8 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SettingsModule } from './settings/settings.module';
 import { HelperModule } from './shared/helper/helper.module';
 import { SvgModule } from './shared/svg/svg.module';
-import { RecordModule } from './record/record.module';
 import { RecordListModule } from './record-list/record-list.module';
 import { UpdateLayerModule } from './update-layer/update-layer.module';
 
@@ -35,8 +33,6 @@ export const httpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(h
     }),
     HelperModule,
     SvgModule,
-    RecordModule,
-    SettingsModule,
     RecordListModule,
     UpdateLayerModule,
     // Keep last for catch all.
