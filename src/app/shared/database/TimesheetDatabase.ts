@@ -60,6 +60,20 @@ export class TimesheetDatabase extends Dexie {
             record.project = decodeURIComponent(record.project);
           })
       );
+
+    // Migrate 'undefined' projects
+    this.version(3)
+      .stores(this.schema)
+      .upgrade((tx) =>
+        tx
+          .table(this.recordTableName)
+          .toCollection()
+          .modify((record) => {
+            if (record.project === 'undefined') {
+              delete record.project;
+            }
+          })
+      );
   }
 
   get records() {
