@@ -18,7 +18,6 @@ export interface TimeRecord {
 export class TimesheetDatabase extends Dexie {
   schema: { [key: string]: string };
 
-  private readonly currentVersion = 1;
   private readonly recordTableName = 'timeRecords';
   private readonly typeTableName = 'timeRecordTypes';
   private readonly recordTable: Dexie.Table<TimeRecord, number>;
@@ -32,7 +31,8 @@ export class TimesheetDatabase extends Dexie {
       [this.typeTableName]: '&id, name',
     };
 
-    this.version(this.currentVersion).stores(this.schema);
+    this.versions();
+
     this.recordTable = this.table(this.recordTableName);
     this.typeTable = this.table(this.typeTableName);
 
@@ -44,6 +44,22 @@ export class TimesheetDatabase extends Dexie {
         { id: 3, name: 'public holiday' },
       ] as TimeRecordType[])
       .catch((e) => console.error(e));
+  }
+
+  private versions() {
+    this.version(1).stores(this.schema);
+
+    // Migrate encoded entities
+    this.version(2)
+      .stores(this.schema)
+      .upgrade((tx) =>
+        tx
+          .table(this.recordTableName)
+          .toCollection()
+          .modify((record) => {
+            record.project = decodeURIComponent(record.project);
+          })
+      );
   }
 
   get records() {

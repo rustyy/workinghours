@@ -124,7 +124,7 @@ export class RecordService {
       end: moment(`${date} ${end}`).valueOf(),
       type: +type,
       overall: this.helper.hhMmToMinutes(overall),
-      project: project ? escape(project) : undefined,
+      project: project ? project : undefined,
     };
 
     return JSON.parse(JSON.stringify(record));
