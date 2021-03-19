@@ -8,8 +8,6 @@ interface ISetting {
   providedIn: 'root',
 })
 export class SettingsService {
-  constructor() {}
-
   updateMultiple(settings: ISetting): void {
     for (const key in settings) {
       if (settings.hasOwnProperty(key)) {
