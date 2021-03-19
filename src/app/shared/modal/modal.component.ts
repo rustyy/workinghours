@@ -1,17 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { confirmAnimation } from './animations';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
-  animations: [confirmAnimation]
+  animations: [confirmAnimation],
 })
-export class ModalComponent implements OnInit {
+export class ModalComponent {
   @Input()
   visible = false;
-
-  constructor() {}
-
-  ngOnInit() {}
 }
