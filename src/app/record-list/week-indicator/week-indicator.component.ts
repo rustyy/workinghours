@@ -10,6 +10,4 @@ export class WeekIndicatorComponent {
   @Input() week = 52;
   @Input() from = 1608505200000;
   @Input() to = 1609109999999;
-
-  constructor() {}
 }
