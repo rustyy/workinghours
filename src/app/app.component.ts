@@ -10,7 +10,6 @@ import { pageToPage } from './shared/animations/pageToPage';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
   animations: [trigger('routeAnimations', [transition('* <=> closable', [useAnimation(pageToPage)])])],
 })
 export class AppComponent implements OnInit {
