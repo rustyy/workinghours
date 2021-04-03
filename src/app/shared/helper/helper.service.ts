@@ -12,8 +12,6 @@ export interface WeekNavigation extends WeekYear {
 
 @Injectable()
 export class HelperService {
-  constructor() {}
-
   static parseYearWeek(y: number, w: number, direction: 'prev' | 'next') {
     let mom = moment(`${y} ${w} 1`, 'YYYY W E');
     mom = direction === 'prev' ? mom.subtract(1, 'w') : mom.add(1, 'w');
