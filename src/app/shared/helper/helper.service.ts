@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import moment from 'moment';
+import { prependLeadingZero } from '../utils/utils';
 
 export interface WeekYear {
   week: number;
@@ -41,10 +42,8 @@ export class HelperService {
   }
 
   minutesToHhMm(val: number, delimiter: string = ':'): string {
-    const hours = Math.floor(val / 60);
-    const hoursString = hours === 0 ? '00' : hours < 10 ? `0${hours}` : hours;
-    const minutes = val % 60;
-    const minutesString = minutes === 0 ? '00' : minutes < 10 ? `0${minutes}` : minutes;
+    const hoursString = prependLeadingZero(Math.floor(val / 60));
+    const minutesString = prependLeadingZero(val % 60);
 
     return `${hoursString}${delimiter}${minutesString}`;
   }
