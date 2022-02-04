@@ -28,8 +28,8 @@
       <input formControlName="created" type="hidden" />
       <input formControlName="updated" type="hidden" />
 
-      <div *ngIf="recordForm.errors && recordForm.errors.conflictingRecord" class="error">
-        <div *ngFor="let record of recordForm.errors.conflictingRecord">
+      <div *ngIf="recordForm.errors && recordForm.errors['conflictingRecord']" class="error">
+        <div *ngFor="let record of recordForm.errors['conflictingRecord']">
           {{ 'ERRORS.CONFLICTING_RECORD' | translate }}
           {{ record.start | date: 'dd.MM.yyyy' }}, {{ record.start | date: 'HH:mm' }} - {{ record.end | date: 'HH:mm' }}
         </div>
@@ -47,14 +47,14 @@
         ></app-input>
       </div>
 
-      <div *ngIf="+recordForm.controls.type.value === 0">
+      <div *ngIf="+recordForm.controls['type'].value === 0">
         <div appFlexContainer>
           <app-input [label]="'DETAIL.START' | translate" [parentForm]="recordForm" id="start" type="time"></app-input>
 
           <app-input [label]="'DETAIL.END' | translate" [parentForm]="recordForm" id="end" type="time"></app-input>
         </div>
 
-        <div *ngIf="recordForm.errors && recordForm.errors.startEndMismatch" class="error">
+        <div *ngIf="recordForm.errors && recordForm.errors['startEndMismatch']" class="error">
           {{ 'ERRORS.START_END_MISMATCH' | translate }}
         </div>
 

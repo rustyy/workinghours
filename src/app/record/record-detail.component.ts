@@ -88,7 +88,7 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
 
   public confirmDelete(): void {
     this.confirmation = true;
-    this.recordService.deleteRecord(this.recordForm.controls.id.value).subscribe(() => this.location.back());
+    this.recordService.deleteRecord(this.recordForm.controls['id'].value).subscribe(() => this.location.back());
   }
 
   /**
@@ -98,7 +98,7 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
     // Recalculate overall.
     const subscription = this.recordForm.valueChanges.subscribe((): void => {
       const overall = this.recordService.calculateOverall(this.recordForm);
-      this.recordForm.controls.overall.patchValue(overall, { emitEvent: false });
+      this.recordForm.controls['overall'].patchValue(overall, { emitEvent: false });
     });
 
     this.subscriptions.push(subscription);

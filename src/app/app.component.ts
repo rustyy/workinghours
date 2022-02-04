@@ -42,10 +42,10 @@ export class AppComponent implements OnInit {
     this.translate.addLangs(['en', 'de']);
     this.translate.setDefaultLang('en');
     const browserLang = this.translate.getBrowserLang();
-    this.translate.use(browserLang.match(/en|de/) ? browserLang : 'en');
+    this.translate.use(browserLang && browserLang.match(/en|de/) ? browserLang : 'en');
   }
 
   prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData.animation;
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }
