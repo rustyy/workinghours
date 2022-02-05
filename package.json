@@ -17,7 +17,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:headless": "ng test --browsers=ChromeHeadlessCI",
-    "test:ci": "npm run test:headless -- --no-watch --no-progress"
+    "test:ci": "npm run test:headless -- --no-watch --no-progress",
+    "clean": "npx rimraf **/node_modules **/dist **/coverage **/.angular"
   },
   "dependencies": {
     "@angular/animations": "~13.2.1",
