@@ -52,9 +52,9 @@ export class RecordService {
   }
 
   public calculateOverall(fg: FormGroup): string {
-    const start: string = fg.controls.start.value;
-    const end: string = fg.controls.end.value;
-    const breakVal: string = fg.controls.break.value;
+    const start: string = fg.controls['start'].value;
+    const end: string = fg.controls['end'].value;
+    const breakVal: string = fg.controls['break'].value;
 
     const s = this.helper.hhMmToMinutes(start);
     const e = this.helper.hhMmToMinutes(end);

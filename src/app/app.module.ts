@@ -22,7 +22,6 @@ export const httpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(h
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -37,6 +36,12 @@ export const httpLoaderFactory = (http: HttpClient) => new TranslateHttpLoader(h
     UpdateLayerModule,
     // Keep last for catch all.
     AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

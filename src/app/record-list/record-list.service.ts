@@ -34,7 +34,7 @@ export class RecordListService {
    * If params are missing falls back to current week.
    */
   public recordsByRouteParams(params: Params) {
-    return params.pipe(
+    return params['pipe'](
       map(({ year, week }: { year: string; week: string }) => this.mapYearWeek({ year, week })),
       map(({ year, week }: { year: number; week: number }) => this.helperService.getMinMaxTime(year, week)),
       switchMap((o: any) => this.getRecords(o))
@@ -110,7 +110,7 @@ export class RecordListService {
 
   private recordTypeMapper({ records, types }: { records: TimeRecord[]; types: TimeRecordType[] }) {
     return records.map((record: TimeRecord) => {
-      record.typeName = types[record.type].name;
+      record['typeName'] = types[record.type].name;
       return record;
     });
   }
