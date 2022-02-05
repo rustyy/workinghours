@@ -13,13 +13,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:headless": "ng test --browsers=ChromeHeadlessCI",
-    "test:ci": "npm run test:headless -- --no-watch --no-progress",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "test:ci": "npm run test:headless -- --no-watch --no-progress"
   },
   "dependencies": {
     "@angular/animations": "~13.2.1",
@@ -40,7 +38,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-builders/custom-webpack": "^11.1.1",
+    "@angular-builders/custom-webpack": "^13.1.0",
     "@angular-devkit/build-angular": "~13.2.2",
     "@angular/cli": "~13.2.2",
     "@angular/compiler-cli": "~13.2.1",
