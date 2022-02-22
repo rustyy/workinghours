@@ -44,9 +44,11 @@ export class SendService {
   private mapper([records, translations]: [TimeRecord[], any]) {
     const mail = this.settingsService.get('email') || '';
     const name = this.settingsService.get('name') || '';
-    const mailBody = records.map(this.buildMailBody(translations));
+    const separator = '________________________________________\n';
+    const transformedRecords = records.map(this.buildMailBody(translations)).join(separator);
+    const mailBody = `Name: ${name || '--'}\n\n${transformedRecords}`;
 
-    return `mailto:${mail}?subject=workinghours&body=${escape(name)}${escape(mailBody.join(''))}`;
+    return `mailto:${mail}?subject=workinghours&body=${encodeURIComponent(mailBody)}`;
   }
 
   private buildMailBody(translations: any) {
@@ -60,7 +62,6 @@ export class SendService {
       const lines = [
         [d, startEnd, o].filter((id) => id).join('          '),
         `${translations['DETAIL.PROJECT']}: ${project || '--'}`,
-        '________________________________________',
       ].join('\n');
 
       return '\n' + lines + '\n';
