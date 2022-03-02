@@ -7,7 +7,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { validateStartEnd } from '../shared/validators/validateStartEnd';
 import { UniqueEntryValidator } from '../shared/validators/UniqueEntryValidator';
 import { RecordService } from './record.service';
-import { TimeRecord } from '../shared/database/TimesheetDatabase';
+import { ITimeRecord } from '../shared/database/TimesheetDatabase';
 
 @Component({
   selector: 'app-record-detail',
@@ -104,7 +104,7 @@ export class RecordDetailComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subscription);
   }
 
-  private setControlValues(record: TimeRecord): void {
+  private setControlValues(record: ITimeRecord): void {
     for (const prop in record) {
       if (record.hasOwnProperty(prop)) {
         const control = this.recordForm.get(prop);

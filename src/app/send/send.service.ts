@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '../settings/settings.service';
 import { HelperService } from '../shared/helper/helper.service';
-import { TimeRecord } from '../shared/database/TimesheetDatabase';
+import { ITimeRecord } from '../shared/database/TimesheetDatabase';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +25,7 @@ export class SendService {
     return `${dayMapping[dayShort]} ${date}`;
   }
 
-  mailUrl(records$: Observable<TimeRecord[]>): Observable<string> {
+  mailUrl(records$: Observable<ITimeRecord[]>): Observable<string> {
     const translations$ = this.translateService.get([
       'TYPES',
       'DETAIL.PROJECT',
@@ -41,7 +41,7 @@ export class SendService {
   }
 
   // @todo: type for translations
-  private mapper([records, translations]: [TimeRecord[], any]) {
+  private mapper([records, translations]: [ITimeRecord[], any]) {
     const mail = this.settingsService.get('email') || '';
     const name = this.settingsService.get('name') || '';
     const separator = '________________________________________\n';
@@ -52,7 +52,7 @@ export class SendService {
   }
 
   private buildMailBody(translations: any) {
-    return ({ type, start, end, overall, project }: TimeRecord) => {
+    return ({ type, start, end, overall, project }: ITimeRecord) => {
       const d = SendService.formatDay(start, translations);
       const s = moment(start).format('HH:mm');
       const e = moment(end).format('HH:mm');

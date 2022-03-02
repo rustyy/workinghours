@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { TimeRecordType } from '../../types/TimeRecordType';
+import { ITimeRecordType } from '../../types/ITimeRecordType';
 import { DatabaseService } from '../shared/database/database.service';
 import { HelperService, WeekNavigation, WeekYear } from '../shared/helper/helper.service';
 import { SettingsService } from '../settings/settings.service';
-import { TimeRecord } from '../shared/database/TimesheetDatabase';
+import { ITimeRecord } from '../shared/database/TimesheetDatabase';
 
 export interface Summary {
   current: number;
@@ -74,7 +74,7 @@ export class RecordListService {
     };
   }
 
-  public sumHours(records: Observable<TimeRecord[]>) {
+  public sumHours(records: Observable<ITimeRecord[]>) {
     return records.pipe(
       map((recs) => recs.map((r) => r.overall)),
       map((recs) => {
@@ -85,7 +85,7 @@ export class RecordListService {
     );
   }
 
-  public summary(records: Observable<TimeRecord[]>): Observable<Summary> {
+  public summary(records: Observable<ITimeRecord[]>): Observable<Summary> {
     const weeklyHours = +(this.settings.get('weeklyHours') || 0);
     return this.sumHours(records).pipe(
       map((sum) => {
@@ -101,15 +101,15 @@ export class RecordListService {
     );
   }
 
-  private getRecords({ minTime, maxTime }: { minTime: number; maxTime: number }): Observable<TimeRecord[]> {
+  private getRecords({ minTime, maxTime }: { minTime: number; maxTime: number }): Observable<ITimeRecord[]> {
     return forkJoin({
       records: this.db.getRecordsInTimeRange(minTime, maxTime),
       types: this.db.getTypes(),
     }).pipe(map(this.recordTypeMapper));
   }
 
-  private recordTypeMapper({ records, types }: { records: TimeRecord[]; types: TimeRecordType[] }) {
-    return records.map((record: TimeRecord) => {
+  private recordTypeMapper({ records, types }: { records: ITimeRecord[]; types: ITimeRecordType[] }) {
+    return records.map((record: ITimeRecord) => {
       record['typeName'] = types[record.type].name;
       return record;
     });

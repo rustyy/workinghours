@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
 
-import { TimeRecord, TimesheetDatabase } from './TimesheetDatabase';
+import { ITimeRecord, TimesheetDatabase } from './TimesheetDatabase';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +13,7 @@ export class DatabaseService {
     this.db = new TimesheetDatabase();
   }
 
-  public addRecord(record: TimeRecord) {
+  public addRecord(record: ITimeRecord) {
     return from(this.db.records.put(record));
   }
 

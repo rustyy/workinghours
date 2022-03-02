@@ -6,8 +6,8 @@ import { HelperService } from '../shared/helper/helper.service';
 import { FormGroup } from '@angular/forms';
 import { DatabaseService } from '../shared/database/database.service';
 import { TranslateService } from '@ngx-translate/core';
-import { TimeRecordType } from '../../types/TimeRecordType';
-import { TimeRecord } from '../shared/database/TimesheetDatabase';
+import { ITimeRecordType } from '../../types/ITimeRecordType';
+import { ITimeRecord } from '../shared/database/TimesheetDatabase';
 
 interface FormData {
   date: string;
@@ -32,7 +32,7 @@ export class RecordService {
     private translateService: TranslateService
   ) {}
 
-  public getRecord(id: number): Observable<TimeRecord | undefined> {
+  public getRecord(id: number): Observable<ITimeRecord | undefined> {
     return this.databaseService.getRecord(id).pipe(
       map((record) => {
         if (record) {
@@ -67,10 +67,10 @@ export class RecordService {
     const types$ = this.databaseService.getTypes();
     const typesTranslations$ = this.translateService.get('TYPES');
 
-    const mapTranslations = (data: [TimeRecordType[], string[]]): TimeRecordType[] => {
+    const mapTranslations = (data: [ITimeRecordType[], string[]]): ITimeRecordType[] => {
       const [types, translations] = data;
 
-      return types.map((type: TimeRecordType) => {
+      return types.map((type: ITimeRecordType) => {
         // @ts-ignore
         type.name = translations[`type${type.id}`];
         return type;
@@ -80,7 +80,7 @@ export class RecordService {
     return forkJoin([types$, typesTranslations$]).pipe(map(mapTranslations));
   }
 
-  private recordToFormData(record: TimeRecord) {
+  private recordToFormData(record: ITimeRecord) {
     const result: any = {};
     const { id, start, end, overall, type, project, created, updated } = record;
 
@@ -114,11 +114,11 @@ export class RecordService {
     return result;
   }
 
-  private formDataToRecord(formData: FormData): TimeRecord {
+  private formDataToRecord(formData: FormData): ITimeRecord {
     const { id, date, start, end, overall, type, project, created } = formData;
     const now = moment().valueOf();
 
-    const record: TimeRecord = {
+    const record: ITimeRecord = {
       id: id ? +id : undefined,
       created: created ? +created : now,
       updated: now,

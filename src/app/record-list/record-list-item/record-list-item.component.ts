@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TimeRecord } from '../../shared/database/TimesheetDatabase';
+import { ITimeRecord } from '../../shared/database/TimesheetDatabase';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -8,7 +8,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./record-list-item.component.scss'],
 })
 export class RecordListItemComponent implements OnInit {
-  @Input() item: TimeRecord | undefined;
+  @Input() item: ITimeRecord | undefined;
   start = '';
   isTranslatableType = false;
   typeTranslationKey = '';

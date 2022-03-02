@@ -1,9 +1,9 @@
 import Dexie from 'dexie';
-import { TimeRecordType } from '../../../types/TimeRecordType';
+import { ITimeRecordType } from '../../../types/ITimeRecordType';
 
 const DB_NAME = 'TimesheetDatabase';
 
-export interface TimeRecord {
+export interface ITimeRecord {
   [key: string]: any;
   id?: number;
   project?: string;
@@ -20,8 +20,8 @@ export class TimesheetDatabase extends Dexie {
 
   private readonly recordTableName = 'timeRecords';
   private readonly typeTableName = 'timeRecordTypes';
-  private readonly recordTable: Dexie.Table<TimeRecord, number>;
-  private readonly typeTable: Dexie.Table<TimeRecordType, number>;
+  private readonly recordTable: Dexie.Table<ITimeRecord, number>;
+  private readonly typeTable: Dexie.Table<ITimeRecordType, number>;
 
   constructor() {
     super(DB_NAME);
@@ -42,7 +42,7 @@ export class TimesheetDatabase extends Dexie {
         { id: 1, name: 'illness' },
         { id: 2, name: 'holiday' },
         { id: 3, name: 'public holiday' },
-      ] as TimeRecordType[])
+      ] as ITimeRecordType[])
       .catch((e) => console.error(e));
   }
 

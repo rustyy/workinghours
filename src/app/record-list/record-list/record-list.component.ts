@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { SendService } from '../../send/send.service';
 import { RecordListService, Summary, TimeRange } from '../record-list.service';
 import { listToList } from '../../shared/animations/listToList';
-import { TimeRecord } from '../../shared/database/TimesheetDatabase';
+import { ITimeRecord } from '../../shared/database/TimesheetDatabase';
 
 @Component({
   selector: 'app-record-list',
@@ -17,7 +17,7 @@ import { TimeRecord } from '../../shared/database/TimesheetDatabase';
 })
 export class RecordListComponent implements OnInit {
   // @todo: avoid !
-  records$!: Observable<TimeRecord[]>;
+  records$!: Observable<ITimeRecord[]>;
   // @Todo: interface.
   timeRange$!: Observable<TimeRange>;
   mailUrl$!: Observable<string>;
