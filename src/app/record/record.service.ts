@@ -82,9 +82,11 @@ export class RecordService {
 
   private recordToFormData(record: TimeRecord) {
     const result: any = {};
-    const { id, start, end, overall, type, project } = record;
+    const { id, start, end, overall, type, project, created, updated } = record;
 
     result.id = id;
+    result.created = created;
+    result.updated = updated;
 
     if (start) {
       result.date = moment(start).format('YYYY-MM-DD');
@@ -113,12 +115,12 @@ export class RecordService {
   }
 
   private formDataToRecord(formData: FormData): TimeRecord {
-    const { id, date, start, end, overall, type, project } = formData;
+    const { id, date, start, end, overall, type, project, created } = formData;
     const now = moment().valueOf();
 
     const record: TimeRecord = {
       id: id ? +id : undefined,
-      created: id ? undefined : now,
+      created: created ? +created : now,
       updated: now,
       start: moment(`${date} ${start}`).valueOf(),
       end: moment(`${date} ${end}`).valueOf(),
