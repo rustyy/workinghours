@@ -21,21 +21,11 @@ export class UniqueEntryValidator implements AsyncValidator {
     const id = control.get('id')?.value;
 
     const format = 'YYYY-MM-DD HH:mm';
-    const startOfDay = UniqueEntryValidator.valueOf(dateValue);
-    const endOfDay = UniqueEntryValidator.valueOf(`${dateValue} 23:59:59.999`, 'YYYY-MM-DD HH:mm:ss.SSS');
     const start = UniqueEntryValidator.valueOf(`${dateValue} ${startValue}`, format);
     const end = UniqueEntryValidator.valueOf(`${dateValue} ${endValue}`, format);
 
-    return this.dbService.getRecordsInTimeRange(startOfDay, endOfDay).pipe(
-      map((records) => {
-        const conflictingRecords = records
-          // Ignore if record being edited.
-          .filter((record) => record.id !== id)
-          // Filter conflicting time windows.
-          .filter((record) => record.start < end && record.end > start);
-
-        return conflictingRecords.length ? { conflictingRecord: conflictingRecords } : null;
-      })
-    );
+    return this.dbService
+      .getConflictingRecords({ start, end, id })
+      .pipe(map((l) => (l.length ? { conflictingRecord: l } : null)));
   }
 }

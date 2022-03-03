@@ -35,6 +35,16 @@ export class DatabaseService {
     );
   }
 
+  public getConflictingRecords({ start, end, id }: { start: number; end: number; id: number }) {
+    return from(
+      this.db.records
+        .where('id')
+        .notEqual(id)
+        .filter((record) => record.start < end && record.end > start)
+        .toArray()
+    );
+  }
+
   public getTypes() {
     return from(this.db.types.toArray());
   }

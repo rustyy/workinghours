@@ -16,8 +16,7 @@ import { ITimeRecord } from '../../shared/database/TimesheetDatabase';
   animations: [trigger('list', [transition('* => *', [useAnimation(listToList)])])],
 })
 export class RecordListComponent implements OnInit {
-  // @todo: avoid !
-  records$!: Observable<ITimeRecord[]>;
+  records$: Observable<ITimeRecord[]> = new Observable<ITimeRecord[]>((s) => s.next([]));
   // @Todo: interface.
   timeRange$!: Observable<TimeRange>;
   mailUrl$!: Observable<string>;

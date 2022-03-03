@@ -37,7 +37,7 @@ export class RecordListService {
     return params['pipe'](
       map(({ year, week }: { year: string; week: string }) => this.mapYearWeek({ year, week })),
       map(({ year, week }: { year: number; week: number }) => this.helperService.getMinMaxTime(year, week)),
-      switchMap((o: any) => this.getRecords(o))
+      switchMap((o: { minTime: number; maxTime: number }) => this.getRecords(o))
     );
   }
 
@@ -101,11 +101,8 @@ export class RecordListService {
     );
   }
 
-  private getRecords({ minTime, maxTime }: { minTime: number; maxTime: number }): Observable<ITimeRecord[]> {
-    return forkJoin({
-      records: this.db.getRecordsInTimeRange(minTime, maxTime),
-      types: this.db.getTypes(),
-    }).pipe(map(this.recordTypeMapper));
+  private getRecords({ minTime, maxTime }: { minTime: number; maxTime: number }) {
+    return this.db.getRecordsInTimeRange(minTime, maxTime);
   }
 
   private recordTypeMapper({ records, types }: { records: ITimeRecord[]; types: ITimeRecordType[] }) {
