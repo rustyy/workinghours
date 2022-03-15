@@ -27,10 +27,10 @@
     "CONFLICTING_RECORD": "Your data conflicts with another entry:"
   },
   "TYPES": {
-    "type0": "default",
-    "type1": "illness",
-    "type2": "holiday",
-    "type3": "public holiday"
+    "0": "default",
+    "1": "illness",
+    "2": "holiday",
+    "3": "public holiday"
   },
   "CONFIRM_DELETE_HEADLINE": "Delete entry",
   "CONFIRM_DELETE": "Are you sure you? This action cannot be undone.",

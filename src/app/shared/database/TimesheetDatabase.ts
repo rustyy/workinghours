@@ -21,29 +21,17 @@ export class TimesheetDatabase extends Dexie {
   private readonly recordTableName = 'timeRecords';
   private readonly typeTableName = 'timeRecordTypes';
   private readonly recordTable: Dexie.Table<ITimeRecord, number>;
-  private readonly typeTable: Dexie.Table<ITimeRecordType, number>;
 
   constructor() {
     super(DB_NAME);
 
     this.schema = {
       [this.recordTableName]: '++id, created, updated, type, start, end, overall, project',
-      [this.typeTableName]: '&id, name',
     };
 
     this.versions();
 
     this.recordTable = this.table(this.recordTableName);
-    this.typeTable = this.table(this.typeTableName);
-
-    this.typeTable
-      .bulkPut([
-        { id: 0, name: 'default' },
-        { id: 1, name: 'illness' },
-        { id: 2, name: 'holiday' },
-        { id: 3, name: 'public holiday' },
-      ] as ITimeRecordType[])
-      .catch((e) => console.error(e));
   }
 
   private versions() {
@@ -74,13 +62,12 @@ export class TimesheetDatabase extends Dexie {
             }
           })
       );
+
+    // remove 'type' object store
+    this.version(4).stores(this.schema);
   }
 
   get records() {
     return this.recordTable;
-  }
-
-  get types() {
-    return this.typeTable;
   }
 }

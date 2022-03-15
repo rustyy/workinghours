@@ -16,7 +16,7 @@ describe('RecordListService', () => {
 
   beforeEach(() => {
     const spyHelper = jasmine.createSpyObj('HelperService', ['getMinMaxTime', 'getPrevWeek', 'getNextWeek']);
-    const spyDb = jasmine.createSpyObj('DatabaseService', ['getRecordsInTimeRange', 'getTypes']);
+    const spyDb = jasmine.createSpyObj('DatabaseService', ['getRecordsInTimeRange']);
     const spySettings = jasmine.createSpyObj('SettingsService', ['get']);
 
     TestBed.configureTestingModule({

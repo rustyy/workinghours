@@ -27,10 +27,10 @@
     "CONFLICTING_RECORD": "Im angegebenen Zeitraum existiert bereits ein Eintrag:"
   },
   "TYPES": {
-    "type0": "Normal",
-    "type1": "Krankheit",
-    "type2": "Urlaub",
-    "type3": "Feiertag"
+    "0": "Normal",
+    "1": "Krankheit",
+    "2": "Urlaub",
+    "3": "Feiertag"
   },
   "CONFIRM_DELETE_HEADLINE": "Eintrag löschen",
   "CONFIRM_DELETE": "Sind Sie sicher? Diese Aktion kann nicht rückgängig gemacht werden.",

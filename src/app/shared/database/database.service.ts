@@ -44,8 +44,4 @@ export class DatabaseService {
         .toArray()
     );
   }
-
-  public getTypes() {
-    return from(this.db.types.toArray());
-  }
 }

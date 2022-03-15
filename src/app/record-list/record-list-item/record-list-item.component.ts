@@ -23,7 +23,7 @@ export class RecordListItemComponent implements OnInit {
       this.start = this.datePipe.transform(this.item.start, 'EEEEEE') || '';
       this.isTranslatableType = type > 0;
       this.typeModifier = `item__type--${type}`;
-      this.typeTranslationKey = `TYPES.type${type}`;
+      this.typeTranslationKey = `TYPES.${type}`;
     }
   }
 }

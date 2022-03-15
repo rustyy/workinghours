@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import moment from 'moment';
-import { HelperService } from '../shared/helper/helper.service';
 import { FormGroup } from '@angular/forms';
-import { DatabaseService } from '../shared/database/database.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ITimeRecordType } from '../../types/ITimeRecordType';
+import moment from 'moment';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { DatabaseService } from '../shared/database/database.service';
 import { ITimeRecord } from '../shared/database/TimesheetDatabase';
+import { HelperService } from '../shared/helper/helper.service';
 
 interface FormData {
   date: string;
@@ -64,20 +63,18 @@ export class RecordService {
   }
 
   public getTypes(): Observable<any[]> {
-    const types$ = this.databaseService.getTypes();
     const typesTranslations$ = this.translateService.get('TYPES');
+    const mapTranslations = (data: { [k: string]: string }): { id: string; name: string }[] => {
+      const result = [];
 
-    const mapTranslations = (data: [ITimeRecordType[], string[]]): ITimeRecordType[] => {
-      const [types, translations] = data;
+      for (let [key, value] of Object.entries(data)) {
+        result.push({ id: key, name: value });
+      }
 
-      return types.map((type: ITimeRecordType) => {
-        // @ts-ignore
-        type.name = translations[`type${type.id}`];
-        return type;
-      });
+      return result;
     };
 
-    return forkJoin([types$, typesTranslations$]).pipe(map(mapTranslations));
+    return typesTranslations$.pipe(map(mapTranslations));
   }
 
   private recordToFormData(record: ITimeRecord) {
